@@ -1,22 +1,31 @@
-#include "Curses.hpp"
+#include "Slider.hpp"
 
 int main()
 {
-    Curses::Instance curses = Curses::getInstance();
+    Slider slider;
+    slider.setBounds (12, 1, 10, 10);
 
-    Window window = curses.createWindow (2, 2, 10, 10);
-    Window window2 = curses.createWindow (4, 4, 10, 10);
+    Slider slider2;
+    slider2.setBounds (30, 15, 9, 5);
 
-    window.addCharacter ('F');
-    window.addCharacter ('C', 5, 5);
+    getch();
 
-    window.addString ("Hello World!");
-    window.addString ("Not me!", 3, 0);
+    slider2.hide();
 
-    window.hide();
+    getch();
 
+    slider.hide();
+
+    getch();
+
+    slider.show();
+    slider2.show();
     update_panels();
     doupdate();
+
+    getch();
+
+    slider2.setBounds (3, 4, 2, 2);
 
     getch();
 

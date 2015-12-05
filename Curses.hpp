@@ -20,6 +20,9 @@ public:
 
     Window createWindow (int x, int y, int width, int height);
 
+    int getScreenWidth();
+    int getScreenHeight();
+
 private:
     Curses();
     Curses (const Curses&) = delete;
@@ -31,14 +34,14 @@ private:
 class Window
 {
 public:
-    Window (const Window &other);
-    Window& operator= (const Window &rhs);
     Window (Window &&other);
     Window& operator= (Window &&rhs);
     ~Window();
 
     void hide();
     void show();
+    void move (int x, int y);
+    void resize (int x, int y, int width, int height);
 
     void addCharacter (const chtype character);
     void addCharacter (const chtype character, int x, int y);
