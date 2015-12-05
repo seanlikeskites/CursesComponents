@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <curses.h>
+#include <panel.h>
 
 class Window;
 
@@ -10,6 +11,7 @@ class Curses
 {
 public:
     using WindowPointer = std::unique_ptr <WINDOW, int(*)(WINDOW*)>;
+    using PanelPointer = std::unique_ptr <PANEL, int(*)(PANEL*)>;
     using Instance = Curses&;
 
     ~Curses();
@@ -29,9 +31,14 @@ private:
 class Window
 {
 public:
+    Window (const Window &other);
+    Window& operator= (const Window &rhs);
     Window (Window &&other);
     Window& operator= (Window &&rhs);
     ~Window();
+
+    void hide();
+    void show();
 
     void addCharacter (const chtype character);
     void addCharacter (const chtype character, int x, int y);
@@ -45,6 +52,7 @@ private:
     Window (int x, int y, int width, int height);
 
     Curses::WindowPointer window;
+    Curses::PanelPointer panel;
 
     friend class Curses;
 };

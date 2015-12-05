@@ -22,24 +22,50 @@ Window Curses::createWindow (int x, int y, int width, int height)
 }
 
 Window::Window (int x, int y, int width, int height)
-    : window (newwin (height, width, y, x), delwin)
+    : window (newwin (height, width, y, x), delwin),
+      panel (new_panel (window.get()), del_panel)
 {
 }
 
+Window::Window (const Window &other)
+    : window (dupwin (other.window.get()), delwin),
+      panel (new_panel (other.window.get()), del_panel)
+{
+}
+
+Window& Window::operator= (const Window &rhs)
+{
+    window = Curses::WindowPointer (dupwin (rhs.window.get()), delwin);
+    panel = Curses::PanelPointer (new_panel (window.get()), del_panel);
+    return *this;
+}
+
 Window::Window (Window &&other)
-    : window (std::move (other.window))
+    : window (std::move (other.window)),
+      panel (new_panel (window.get()), del_panel)
 {
 }
 
 Window& Window::operator= (Window &&rhs)
 {
     window = std::move (rhs.window);
+    panel = Curses::PanelPointer (new_panel (window.get()), del_panel);
 
     return *this;
 }
 
 Window::~Window()
 {
+}
+
+void Window::hide()
+{
+    hide_panel (panel.get());
+}
+
+void Window::show()
+{
+    show_panel (panel.get());
 }
 
 void Window::addCharacter (const chtype character)
