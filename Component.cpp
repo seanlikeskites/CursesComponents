@@ -12,7 +12,9 @@ Component::~Component()
 
 void Component::redraw()
 {
+    Window::VideoAttributes attributeCache = window.getVideoAttributes();
     draw (window);
+    window.setVideoAttributes (attributeCache);
     update_panels();
     doupdate();
 }

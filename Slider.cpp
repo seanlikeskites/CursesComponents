@@ -10,14 +10,7 @@ Slider::~Slider()
 
 void Slider::draw (Window &win)
 {
-    int width = getWidth();
-    int height = getHeight();
-
-    for (int x = 0; x < width; ++x)
-    {
-        for (int y = 0; y < height; ++y)
-        {
-            win.addCharacter ('A', x, y);
-        }
-    }
+    win.addCharacter ('A', 0, 0);
+    win.setColours (Curses::Colour::red, Curses::Colour::blue);
+    win.addCharacter ('B', 1, 1);
 }

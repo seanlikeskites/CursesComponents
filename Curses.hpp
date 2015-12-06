@@ -2,6 +2,7 @@
 #define CURSES_HPP_INCLUDED
 
 #include <memory>
+#include <unordered_set>
 #include <curses.h>
 #include <panel.h>
 
@@ -22,6 +23,22 @@ public:
 
     int getScreenWidth();
     int getScreenHeight();
+
+    enum class Colour : short
+    {
+        black = COLOR_BLACK,
+        red = COLOR_RED,
+        green = COLOR_GREEN,
+        yellow = COLOR_YELLOW,
+        blue = COLOR_BLUE,
+        magenta = COLOR_MAGENTA,
+        cyan = COLOR_CYAN,
+        white = COLOR_WHITE
+    };
+
+    using ColourPair = short;
+
+    ColourPair getColourPairIndex (Colour backgroundColour, Colour foregroundColour);
 
 private:
     Curses();
@@ -49,13 +66,25 @@ public:
     void addString (const char *string);
     void addString (const char *string, int x, int y);
 
-    void waitForInput();
+    struct VideoAttributes
+    {
+        attr_t attributes;
+        short colourPair;
+    };
+
+    VideoAttributes getVideoAttributes() const;
+    void setVideoAttributes (const VideoAttributes &attributes);
+    void setBackgroundColour (Curses::Colour newBackgroundColour);
+    void setForegroundColour (Curses::Colour newForegroundColour);
+    void setColours (Curses::Colour newBackgroundColour, Curses::Colour newForegroundColour);
 
 private:
     Window (int x, int y, int width, int height);
 
     Curses::WindowPointer window;
     Curses::PanelPointer panel;
+
+    Curses::Colour backgroundColour, foregroundColour;
 
     friend class Curses;
 };
