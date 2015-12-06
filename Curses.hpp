@@ -60,11 +60,17 @@ public:
     void move (int x, int y);
     void resize (int x, int y, int width, int height);
 
-    void addCharacter (const chtype character);
-    void addCharacter (const chtype character, int x, int y);
+    void printCharacter (const chtype character);
+    void printCharacter (const chtype character, int x, int y);
 
-    void addString (const char *string);
-    void addString (const char *string, int x, int y);
+    void printString (const std::string &string);
+    void printString (const std::string &string, int x, int y);
+
+    void printDouble (double value);
+    void printDouble (double value, int x, int y);
+
+    void printInteger (int value);
+    void printInteger (int value, int x, int y);
 
     struct VideoAttributes
     {
@@ -77,6 +83,9 @@ public:
     void setBackgroundColour (Curses::Colour newBackgroundColour);
     void setForegroundColour (Curses::Colour newForegroundColour);
     void setColours (Curses::Colour newBackgroundColour, Curses::Colour newForegroundColour);
+
+    void setBold (bool setting);
+    void setUnderline (bool setting);
 
 private:
     Window (int x, int y, int width, int height);

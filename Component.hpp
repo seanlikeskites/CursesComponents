@@ -25,6 +25,7 @@ private:
     int width, height;
 
     virtual void draw (Window &w) = 0;
+    virtual void resized() = 0;
 };
 
 #endif // COMPONENT_HPP_INCLUDED

@@ -110,24 +110,44 @@ void Window::show()
     show_panel (panel.get());
 }
 
-void Window::addCharacter (const chtype character)
+void Window::printCharacter (const chtype character)
 {
     waddch (window.get(), character);
 }
 
-void Window::addCharacter (const chtype character, int x, int y)
+void Window::printCharacter (const chtype character, int x, int y)
 {
     mvwaddch (window.get(), y, x, character);
 }
 
-void Window::addString (const char *string)
+void Window::printString (const std::string &string)
 {
-    waddstr (window.get(), string);
+    waddstr (window.get(), string.c_str());
 }
 
-void Window::addString (const char *string, int x, int y)
+void Window::printString (const std::string &string, int x, int y)
 {
-    mvwaddstr (window.get(), y, x, string);
+    mvwaddstr (window.get(), y, x, string.c_str());
+}
+
+void Window::printDouble (double value)
+{
+    wprintw (window.get(), "%.2f", value);
+}
+
+void Window::printDouble (double value, int x, int y)
+{
+    mvwprintw (window.get(), y, x, "%.2f", value);
+}
+
+void Window::printInteger (int value)
+{
+    wprintw (window.get(), "%d", value);
+}
+
+void Window::printInteger (int value, int x, int y)
+{
+    mvwprintw (window.get(), y, x, "%d", value);
 }
 
 Window::VideoAttributes Window::getVideoAttributes() const
@@ -158,4 +178,28 @@ void Window::setColours (Curses::Colour newBackgroundColour, Curses::Colour newF
     backgroundColour = newBackgroundColour;
     foregroundColour = newForegroundColour;
     wattron (window.get(), COLOR_PAIR (Curses::getInstance().getColourPairIndex (backgroundColour, foregroundColour)));
+}
+
+void Window::setBold (bool setting)
+{
+    if (setting)
+    {
+        wattron (window.get(), A_BOLD);
+    }
+    else
+    {
+        wattroff (window.get(), A_BOLD);
+    }
+}
+
+void Window::setUnderline (bool setting)
+{
+    if (setting)
+    {
+        wattron (window.get(), A_UNDERLINE);
+    }
+    else
+    {
+        wattroff (window.get(), A_UNDERLINE);
+    }
 }

@@ -2,30 +2,24 @@
 
 int main()
 {
-    Slider slider;
-    slider.setBounds (12, 1, 10, 10);
-
-    Slider slider2;
-    slider2.setBounds (30, 15, 9, 5);
+    Slider slider ("Test");
+    slider.setBounds (2, 2, 6, 40);
 
     getch();
 
-    slider2.hide();
+    slider.setValue (0.5);
 
     getch();
 
-    slider.hide();
+    slider.setValue (5);
 
     getch();
 
-    slider.show();
-    slider2.show();
-    update_panels();
-    doupdate();
+    slider.setValue (-5);
 
     getch();
 
-    slider2.setBounds (3, 4, 2, 2);
+    slider.setValue (0.25);
 
     getch();
 

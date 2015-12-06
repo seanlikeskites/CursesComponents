@@ -26,6 +26,7 @@ void Component::setBounds (int newX, int newY, int newWidth, int newHeight)
     width = newWidth;
     height = newHeight;
 
+    resized();
     redraw();
 }
 
