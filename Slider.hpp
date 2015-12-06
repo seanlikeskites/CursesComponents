@@ -12,10 +12,15 @@ public:
     void setRange (double newBottomValue, double newTopValue, double newSkewFactor = 1.0);
 
     void setValue (double newValue);
+    void setProportionOfLength (double newProportionOfLength);
+    void incrementValue();
+    void decrementValue();
     double getValue() const;
 
     double valueToProportionOfLength (double valueToConvert);
     double proportionOfLengthToValue (double valueToConvert);
+
+    void keyPressed (int key) override;
 
 private:
     std::string name;

@@ -4,24 +4,14 @@ int main()
 {
     Slider slider ("Test");
     slider.setBounds (2, 2, 6, 40);
+    slider.setRange (2, 80, 0.2);
 
-    getch();
+    int key;
 
-    slider.setValue (0.5);
-
-    getch();
-
-    slider.setValue (5);
-
-    getch();
-
-    slider.setValue (-5);
-
-    getch();
-
-    slider.setValue (0.25);
-
-    getch();
+    while ((key = getch()) != '\n')
+    {
+        slider.keyPressed (key);
+    }
 
     return 0;
 }

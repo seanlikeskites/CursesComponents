@@ -27,7 +27,7 @@ void Slider::setRange (double newBottomValue, double newTopValue, double newSkew
     }
 
     range = topValue - bottomValue;
-    proportionOfLength = valueToProportionOfLength (value);
+    setValue (value);
 }
 
 void Slider::setValue (double newValue)
@@ -35,6 +35,24 @@ void Slider::setValue (double newValue)
     value = MathsTools::constrictValueToRange (newValue, bottomValue, topValue);
     proportionOfLength = valueToProportionOfLength (value);
     redraw();
+}
+
+void Slider::setProportionOfLength (double newProportionOfLength)
+{
+    proportionOfLength = MathsTools::constrictValueToRange (newProportionOfLength,
+                                                            0.0, 1.0);
+    value = proportionOfLengthToValue (proportionOfLength);
+    redraw();
+}
+
+void Slider::incrementValue()
+{
+    setProportionOfLength (proportionOfLength + increment);
+}
+
+void Slider::decrementValue()
+{
+    setProportionOfLength (proportionOfLength - increment);
 }
 
 double Slider::getValue() const
@@ -52,6 +70,23 @@ double Slider::proportionOfLengthToValue (double valueToConvert)
     return range * pow (valueToConvert, (1.0 / skewFactor)) + bottomValue;
 }
 
+void Slider::keyPressed (int key)
+{
+    switch (key)
+    {
+        case KEY_UP:
+            incrementValue();
+            break;
+
+        case KEY_DOWN:
+            decrementValue();
+            break;
+
+        default:
+            break;
+    }
+}
+
 void Slider::draw (Window &win)
 {
     int width = getWidth();
@@ -66,6 +101,14 @@ void Slider::draw (Window &win)
 
     win.printString (name, nameStart, height - 1);
     win.printDouble (value, nameStart, height - 2);
+
+    int y = height - 4;
+    int middle = (width - 1) / 2;
+
+    for (double proportion = 0.0; proportion < proportionOfLength; proportion += increment)
+    {
+        win.printCharacter (ACS_BLOCK, middle, y--);
+    }
 }
 
 void Slider::resized()
@@ -73,5 +116,5 @@ void Slider::resized()
     int height = getHeight();   
     sliderHeight = height - 4;
 
-    increment = range / sliderHeight;
+    increment = 1.0 / sliderHeight;
 }

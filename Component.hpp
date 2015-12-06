@@ -19,6 +19,8 @@ public:
     void hide();
     void show();
 
+    virtual void keyPressed (int key) = 0;
+
 private:
     Window window;
 

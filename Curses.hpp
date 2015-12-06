@@ -72,6 +72,8 @@ public:
     void printInteger (int value);
     void printInteger (int value, int x, int y);
 
+    void clear();
+
     struct VideoAttributes
     {
         attr_t attributes;

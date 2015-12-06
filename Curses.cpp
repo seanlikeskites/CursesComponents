@@ -4,6 +4,9 @@
 Curses::Curses()
 {
     initscr();
+    keypad (stdscr, true);
+    cbreak();
+    noecho();
     start_color();
 
     std::array <Colour, 8> colours {{Colour::black,
@@ -148,6 +151,11 @@ void Window::printInteger (int value)
 void Window::printInteger (int value, int x, int y)
 {
     mvwprintw (window.get(), y, x, "%d", value);
+}
+
+void Window::clear()
+{
+    werase (window.get());
 }
 
 Window::VideoAttributes Window::getVideoAttributes() const

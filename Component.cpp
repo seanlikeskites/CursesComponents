@@ -12,6 +12,7 @@ Component::~Component()
 
 void Component::redraw()
 {
+    window.clear();
     Window::VideoAttributes attributeCache = window.getVideoAttributes();
     draw (window);
     window.setVideoAttributes (attributeCache);
