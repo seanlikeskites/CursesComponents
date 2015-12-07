@@ -8,12 +8,13 @@ class RangedValue
 {
 public:
     RangedValue (T valueInit, T bottomValueInit, T topValueInit)
-        : value (valueInit),
-          minValue (std::min (bottomValue, topValue)),
-          maxValue (std::max (bottomValue, topValue)),
+        : value (0),
+          minValue (std::min (bottomValueInit, topValueInit)),
+          maxValue (std::max (bottomValueInit, topValueInit)),
           bottomValue (bottomValueInit),
           topValue (topValueInit)
     {
+        operator= (valueInit);
     }
 
     RangedValue (const RangedValue &other) = default;
