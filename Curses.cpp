@@ -1,5 +1,6 @@
 #include "Curses.hpp"
 #include <array>
+#include <string>
 
 Curses::Curses()
 {

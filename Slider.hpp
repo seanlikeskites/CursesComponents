@@ -2,6 +2,7 @@
 #define SLIDER_HPP_INCLUDED
 
 #include "Component.hpp"
+#include <string>
 
 class Slider : public Component
 {
