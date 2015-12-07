@@ -16,29 +16,9 @@ public:
     {
     }
 
-    RangedValue (const RangedValue &other)
-        : value (other.value),
-          minValue (other.minValue),
-          maxValue (other.maxValue),
-          bottomValue (other.bottomValue),
-          topValue (other.topValue)
-    {
-    }
-
-    ~RangedValue()
-    {
-    }
-
-    RangedValue& operator= (const RangedValue &rhs)
-    {
-        value = rhs.value;
-        minValue = rhs.minValue;
-        maxValue = rhs.maxValue;
-        bottomValue = rhs.bottomValue; 
-        topValue = rhs.topValue;
-
-        return *this;
-    }
+    RangedValue (const RangedValue &other) = default;
+    RangedValue& operator= (const RangedValue &rhs) = default;
+    ~RangedValue() = default;
 
     RangedValue& operator= (T rhs)
     {
