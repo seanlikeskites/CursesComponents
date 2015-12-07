@@ -4,9 +4,9 @@
 
 Slider::Slider (const std::string &nameInit)
     : name (nameInit),
-      bottomValue (0.0), topValue (1.0), range (1.0),
+      value (0.0, 0.0, 1.0),
       skewFactor (1.0),
-      value (0.0), proportionOfLength (0.0),
+      proportionOfLength (0.0),
       increment (0.1),
       sliderHeight (0)
 {
@@ -16,23 +16,21 @@ Slider::~Slider()
 {
 }
 
-void Slider::setRange (double newBottomValue, double newTopValue, double newSkewFactor)
+void Slider::setRange (double bottomValue, double topValue, double newSkewFactor)
 {
-    bottomValue = newBottomValue;
-    topValue = newTopValue;
+    value.setRange (bottomValue, topValue);
 
     if (skewFactor > 0.0)
     {
         skewFactor = newSkewFactor;
     }
 
-    range = topValue - bottomValue;
     setValue (value);
 }
 
 void Slider::setValue (double newValue)
 {
-    value = MathsTools::constrictValueToRange (newValue, bottomValue, topValue);
+    value = newValue;
     proportionOfLength = valueToProportionOfLength (value);
     redraw();
 }
@@ -62,11 +60,17 @@ double Slider::getValue() const
 
 double Slider::valueToProportionOfLength (double valueToConvert)
 {
+    double range = value.getRange();
+    double bottomValue = value.getBottomValue();
+
     return pow (((valueToConvert - bottomValue) / range), skewFactor);
 }
 
 double Slider::proportionOfLengthToValue (double valueToConvert)
 {
+    double range = value.getRange();
+    double bottomValue = value.getBottomValue();
+
     return range * pow (valueToConvert, (1.0 / skewFactor)) + bottomValue;
 }
 
