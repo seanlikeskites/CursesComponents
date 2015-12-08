@@ -44,6 +44,30 @@ public:
         return value;
     }
 
+    RangedValue& operator+= (const T &rhs)
+    {
+        operator= (value + rhs);
+        return *this;
+    }
+
+    RangedValue& operator-= (const T &rhs)
+    {
+        operator= (value - rhs);
+        return *this;
+    }
+
+    RangedValue& operator*= (const T &rhs)
+    {
+        operator= (value * rhs);
+        return *this;
+    }
+
+    RangedValue& operator/= (const T &rhs)
+    {
+        operator= (value / rhs);
+        return *this;
+    }
+
     void setRange (T newBottomValue, T newTopValue)
     {
           minValue = std::min (newBottomValue, newTopValue);
@@ -59,12 +83,12 @@ public:
 
     T getMinValue()
     {
-        return maxValue;
+        return minValue;
     }
 
     T getMaxValue()
     {
-        return minValue;
+        return maxValue;
     }
 
     T getBottomValue()
