@@ -72,6 +72,8 @@ public:
     void printInteger (int value);
     void printInteger (int value, int x, int y);
 
+    void drawLine (int staryX, int startY, int endX, int endY, const chtype character = ACS_BLOCK);
+
     void clear();
 
     struct VideoAttributes

@@ -2,6 +2,11 @@
 
 int main()
 {
+    Window testWin = Curses::getInstance().createWindow (30, 2, 30, 30);
+    testWin.printString ("Hello World!");
+    testWin.drawLine (3, 20, 14, 10, ',');
+    testWin.drawLine (14, 20, 3, 10, '.');
+
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};
 
@@ -20,6 +25,7 @@ int main()
         sliders [s].setRange (sliderBottoms [s], sliderTops [s], sliderSkews [s]);
         sliderX += sliderWidth;
     }
+
 
     int key;
     int sliderIndex = 0;
@@ -43,6 +49,7 @@ int main()
                 break;
         }
     }
+
 
     return 0;
 }

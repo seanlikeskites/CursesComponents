@@ -1,6 +1,8 @@
 #include "Curses.hpp"
 #include <array>
 #include <string>
+#include <cmath>
+#include "MathsTools.hpp"
 
 Curses::Curses()
 {
@@ -147,6 +149,51 @@ void Window::printDouble (double value, int x, int y)
 void Window::printInteger (int value)
 {
     wprintw (window.get(), "%d", value);
+}
+
+void Window::drawLine (int startX, int startY, int endX, int endY, const chtype character)
+{
+    int xRange = endX - startX;
+    int yRange = endY - startY;
+
+    int x = startX;
+    int y = startY;
+
+    int *iterationDimension = nullptr;
+    int iterationEnd = 0;
+    int iterationIncrement = 0;
+
+    int *otherDimension = nullptr;
+    float otherDimensionFloat = 0.0f;
+    float otherIncrement = 0.0f;
+
+    if (abs (xRange) >= abs (yRange))
+    {
+        iterationDimension = &x;
+        iterationEnd = endX;
+        iterationIncrement = MathsTools::sign (xRange);
+
+        otherDimension = &y;
+        otherDimensionFloat = static_cast <float> (y);
+        otherIncrement = static_cast <float> (yRange) / static_cast <float> (abs (xRange));
+    }
+    else
+    {
+        iterationDimension = &y;
+        iterationEnd = endY;
+        iterationIncrement = MathsTools::sign (yRange);
+
+        otherDimension = &x;
+        otherDimensionFloat = static_cast <float> (x);
+        otherIncrement = static_cast <float> (xRange) / static_cast <float> (abs (yRange));
+    }
+
+    for (; *iterationDimension != iterationEnd + iterationIncrement; *iterationDimension += iterationIncrement)
+    {
+        mvwaddch (window.get(), y, x, character);
+        otherDimensionFloat += otherIncrement;
+        *otherDimension = std::round (otherDimensionFloat);
+    }
 }
 
 void Window::printInteger (int value, int x, int y)
