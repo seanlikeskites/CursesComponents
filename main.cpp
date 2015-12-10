@@ -3,11 +3,22 @@
 int main()
 {
     Window testWin = Curses::getInstance().createWindow (30, 2, 30, 30);
-    testWin.printString ("Hello World!");
-    testWin.setForegroundColour (Curses::Colour::red);
-    testWin.drawLine (3, 20, 14, 10, ',');
     testWin.setForegroundColour (Curses::Colour::green);
-    testWin.drawLine (14, 20, 3, 10, '.');
+
+    for (int i = 0; i < 30; ++i)
+    {
+        testWin.drawLine (0, i, i, 29, '.');
+    }
+
+    testWin.setForegroundColour (Curses::Colour::red);
+
+    for (int i = 0; i < 30; ++i)
+    {
+        testWin.drawLine (i, 0, 29, i, '.');
+    }
+
+    testWin.setForegroundColour (Curses::Colour::cyan);
+    testWin.printString ("Hello World!", 10, 15);
 
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};
