@@ -1,8 +1,7 @@
 SOURCES = main.cpp Curses.cpp Component.cpp Slider.cpp
 OBJECTS = $(subst .cpp,.o, $(SOURCES))
 CXX = clang++
-CXXFLAGS = -std=c++11 -Wall
-LDFLAGS = 
+CXXFLAGS = -std=c++11 -Wall -g
 LIBS = -lpanel -lcurses
 
 all: test
@@ -11,7 +10,7 @@ all: test
 	$(CXX) $(CXXFLAGS) -c $<
 
 test: $(OBJECTS)
-	$(CXX) $(LDFLAGS) -o $@ $(OBJECTS) $(LIBS)
+	$(CXX) -o $@ $(OBJECTS) $(LIBS)
 
 clean:
 	rm -f $(OBJECTS) test
