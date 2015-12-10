@@ -4,7 +4,9 @@ int main()
 {
     Window testWin = Curses::getInstance().createWindow (30, 2, 30, 30);
     testWin.printString ("Hello World!");
+    testWin.setForegroundColour (Curses::Colour::red);
     testWin.drawLine (3, 20, 14, 10, ',');
+    testWin.setForegroundColour (Curses::Colour::green);
     testWin.drawLine (14, 20, 3, 10, '.');
 
     const int numSliders = 4;

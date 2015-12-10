@@ -6,7 +6,7 @@ struct MathsTools
     template <typename T>
     static int sign (T value)
     {
-        return (T (0) < value) - (value < T (0));
+        return sign (value, std::is_signed <T>());
     }
 
     template <typename T>
@@ -27,6 +27,19 @@ struct MathsTools
         {
             return value;
         }
+    }
+
+private:
+    template <typename T>
+    static int sign (T value, std::true_type)
+    {
+        return (T (0) < value) - (value < T (0));
+    }
+
+    template <typename T>
+    static int sign (T value, std::false_type)
+    {
+        return T (0) < value;
     }
 };
 
