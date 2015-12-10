@@ -2,6 +2,7 @@
 #include <array>
 #include <string>
 #include <cmath>
+#include <cstdlib>
 #include "MathsTools.hpp"
 
 Curses::Curses()
