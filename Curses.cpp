@@ -193,7 +193,83 @@ void Window::drawLine (int startX, int startY, int endX, int endY, const chtype 
     {
         mvwaddch (window.get(), y, x, character);
         otherDimensionFloat += otherIncrement;
-        *otherDimension = std::round (otherDimensionFloat);
+        *otherDimension = round (otherDimensionFloat);
+    }
+}
+
+void Window::drawEllipse (int x, int y, int width, int height, const chtype character)
+{
+    int alteredWidth = width - 1;
+    int alteredHeight = height - 1;
+
+    int plotX = 0;
+    int plotY = 0;
+
+    int *iterationDimension = nullptr;
+    int *otherDimension = nullptr;
+
+    float iterationScale = 0.0f;
+    float iterationOffset = 0.0f;
+
+    float otherScale = 0.0f;
+    float otherOffset = 0.0f;
+
+    float iterationIncrement = 0.0f;
+
+    if (alteredWidth >= alteredHeight)
+    {
+        iterationDimension = &plotX;
+        otherDimension = &plotY;
+
+        iterationScale = alteredWidth / 2.0f;
+        iterationOffset = x + iterationScale;
+
+        otherScale = alteredHeight / 2.0f;
+        otherOffset = y + otherScale;
+
+        iterationIncrement = 2.0f / width;
+    }
+    else
+    {
+        iterationDimension = &plotY;
+        otherDimension = &plotX;
+
+        iterationScale = alteredHeight / 2.0f;
+        iterationOffset = y + iterationScale;
+
+        otherScale = alteredWidth / 2.0f;
+        otherOffset = x + otherScale;
+
+        iterationIncrement = 2.0f / height;
+    }
+
+    for (float i = 1.0f; i >= 0.0f; i -= iterationIncrement)
+    {
+        *iterationDimension = round (i * iterationScale + iterationOffset);
+
+        float circleLine = pow (1 - i * i, 0.5);
+        *otherDimension = round (circleLine * otherScale + otherOffset);
+
+        mvwaddch (window.get(), plotY, plotX, character);
+
+        circleLine *= -1.0f;
+        *otherDimension = round (circleLine * otherScale + otherOffset);
+
+        mvwaddch (window.get(), plotY, plotX, character);
+
+        float minusI = -i;
+
+        *iterationDimension = round (minusI * iterationScale + iterationOffset);
+
+        circleLine = pow (1 - minusI * minusI, 0.5);
+        *otherDimension = round (circleLine * otherScale + otherOffset);
+
+        mvwaddch (window.get(), plotY, plotX, character);
+
+        circleLine *= -1.0f;
+        *otherDimension = round (circleLine * otherScale + otherOffset);
+
+        mvwaddch (window.get(), plotY, plotX, character);
     }
 }
 

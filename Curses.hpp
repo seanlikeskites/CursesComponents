@@ -73,6 +73,7 @@ public:
     void printInteger (int value, int x, int y);
 
     void drawLine (int staryX, int startY, int endX, int endY, const chtype character = ACS_BLOCK);
+    void drawEllipse (int x, int y, int width, int height, const chtype character = '.');
 
     void clear();
 

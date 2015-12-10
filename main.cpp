@@ -20,6 +20,8 @@ int main()
     testWin.setForegroundColour (Curses::Colour::cyan);
     testWin.printString ("Hello World!", 10, 15);
 
+    testWin.drawEllipse (2, 2, 14, 18);
+
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};
 
