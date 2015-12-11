@@ -17,10 +17,20 @@ int main()
         testWin.drawLine (i, 0, 29, i, '.');
     }
 
-    testWin.setForegroundColour (Curses::Colour::cyan);
-    testWin.printString ("Hello World!", 10, 15);
+    testWin.setForegroundColour (Curses::Colour::white);
+    testWin.printString ("Hello World!", 9, 15);
 
-    testWin.drawEllipse (2, 2, 14, 18);
+    testWin.setForegroundColour (Curses::Colour::cyan);
+    testWin.drawEllipse (4, 9, 22, 12);
+
+    testWin.setForegroundColour (Curses::Colour::magenta);
+    testWin.drawEllipse (5, 10, 20, 10);
+
+    testWin.setForegroundColour (Curses::Colour::blue);
+    testWin.drawEllipse (6, 11, 18, 8);
+
+    testWin.setForegroundColour (Curses::Colour::yellow);
+    testWin.drawEllipse (7, 12, 16, 6);
 
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};

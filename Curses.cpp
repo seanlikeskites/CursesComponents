@@ -165,8 +165,8 @@ void Window::drawLine (int startX, int startY, int endX, int endY, const chtype 
     int iterationIncrement = 0;
 
     int *otherDimension = nullptr;
-    float otherDimensionFloat = 0.0f;
-    float otherIncrement = 0.0f;
+    double otherDimensionDouble = 0.0;
+    double otherIncrement = 0.0;
 
     if (abs (xRange) >= abs (yRange))
     {
@@ -175,8 +175,8 @@ void Window::drawLine (int startX, int startY, int endX, int endY, const chtype 
         iterationIncrement = MathsTools::sign (xRange);
 
         otherDimension = &y;
-        otherDimensionFloat = static_cast <float> (y);
-        otherIncrement = static_cast <float> (yRange) / static_cast <float> (abs (xRange));
+        otherDimensionDouble = static_cast <double> (y);
+        otherIncrement = static_cast <double> (yRange) / static_cast <double> (abs (xRange));
     }
     else
     {
@@ -185,15 +185,15 @@ void Window::drawLine (int startX, int startY, int endX, int endY, const chtype 
         iterationIncrement = MathsTools::sign (yRange);
 
         otherDimension = &x;
-        otherDimensionFloat = static_cast <float> (x);
-        otherIncrement = static_cast <float> (xRange) / static_cast <float> (abs (yRange));
+        otherDimensionDouble = static_cast <double> (x);
+        otherIncrement = static_cast <double> (xRange) / static_cast <double> (abs (yRange));
     }
 
     for (; *iterationDimension != iterationEnd + iterationIncrement; *iterationDimension += iterationIncrement)
     {
         mvwaddch (window.get(), y, x, character);
-        otherDimensionFloat += otherIncrement;
-        *otherDimension = round (otherDimensionFloat);
+        otherDimensionDouble += otherIncrement;
+        *otherDimension = round (otherDimensionDouble);
     }
 }
 
@@ -208,68 +208,60 @@ void Window::drawEllipse (int x, int y, int width, int height, const chtype char
     int *iterationDimension = nullptr;
     int *otherDimension = nullptr;
 
-    float iterationScale = 0.0f;
-    float iterationOffset = 0.0f;
+    double iterationScale = 0.0;
+    double iterationOffset = 0.0;
 
-    float otherScale = 0.0f;
-    float otherOffset = 0.0f;
-
-    float iterationIncrement = 0.0f;
+    double otherScale = 0.0;
+    double otherOffset = 0.0;
 
     if (alteredWidth >= alteredHeight)
     {
         iterationDimension = &plotX;
         otherDimension = &plotY;
 
-        iterationScale = alteredWidth / 2.0f;
+        iterationScale = alteredWidth / 2.0;
         iterationOffset = x + iterationScale;
 
-        otherScale = alteredHeight / 2.0f;
+        otherScale = alteredHeight / 2.0;
         otherOffset = y + otherScale;
-
-        iterationIncrement = 2.0f / width;
     }
     else
     {
         iterationDimension = &plotY;
         otherDimension = &plotX;
 
-        iterationScale = alteredHeight / 2.0f;
+        iterationScale = alteredHeight / 2.0;
         iterationOffset = y + iterationScale;
 
-        otherScale = alteredWidth / 2.0f;
+        otherScale = alteredWidth / 2.0;
         otherOffset = x + otherScale;
-
-        iterationIncrement = 2.0f / height;
     }
 
-    for (float i = 1.0f; i >= 0.0f; i -= iterationIncrement)
+    double iterationIncrement = 1.0 / (width * height);
+
+    for (double i = 0.0; i <= 1.0; i += iterationIncrement / 2.0)
     {
-        *iterationDimension = round (i * iterationScale + iterationOffset);
+        auto printCircleLine = [iterationDimension,
+                                iterationScale, iterationOffset, 
+                                otherDimension,
+                                otherScale, otherOffset,
+                                &plotX, &plotY,
+                                character,
+                                this] (double xValue)
+                               {
+                                   *iterationDimension = round (xValue * iterationScale + iterationOffset);
 
-        float circleLine = pow (1 - i * i, 0.5);
-        *otherDimension = round (circleLine * otherScale + otherOffset);
+                                   double circleLine = pow (1 - xValue * xValue, 0.5);
 
-        mvwaddch (window.get(), plotY, plotX, character);
+                                   *otherDimension = round (circleLine * otherScale + otherOffset);
+                                   mvwaddch (window.get(), plotY, plotX, character);
 
-        circleLine *= -1.0f;
-        *otherDimension = round (circleLine * otherScale + otherOffset);
-
-        mvwaddch (window.get(), plotY, plotX, character);
-
-        float minusI = -i;
-
-        *iterationDimension = round (minusI * iterationScale + iterationOffset);
-
-        circleLine = pow (1 - minusI * minusI, 0.5);
-        *otherDimension = round (circleLine * otherScale + otherOffset);
-
-        mvwaddch (window.get(), plotY, plotX, character);
-
-        circleLine *= -1.0f;
-        *otherDimension = round (circleLine * otherScale + otherOffset);
-
-        mvwaddch (window.get(), plotY, plotX, character);
+                                   *otherDimension = round (-circleLine * otherScale + otherOffset);
+                                   mvwaddch (window.get(), plotY, plotX, character);
+                               };
+    
+        printCircleLine (i);
+        printCircleLine (-i);
     }
 }
 
