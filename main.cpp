@@ -3,34 +3,38 @@
 int main()
 {
     Window testWin = Curses::getInstance().createWindow (30, 2, 30, 30);
+
+    testWin.setForegroundColour (Curses::Colour::white);
+    testWin.fillAll (ACS_BLOCK);
+
     testWin.setForegroundColour (Curses::Colour::green);
 
     for (int i = 0; i < 30; ++i)
     {
-        testWin.drawLine (0, i, i, 29, '.');
+        testWin.drawLine (0, i, i, 29);
     }
 
     testWin.setForegroundColour (Curses::Colour::red);
 
     for (int i = 0; i < 30; ++i)
     {
-        testWin.drawLine (i, 0, 29, i, '.');
+        testWin.drawLine (i, 0, 29, i);
     }
 
-    testWin.setForegroundColour (Curses::Colour::white);
-    testWin.printString ("Hello World!", 9, 15);
-
     testWin.setForegroundColour (Curses::Colour::cyan);
-    testWin.drawEllipse (4, 9, 22, 12);
+    testWin.drawEllipse (4, 9, 22, 12, ACS_BLOCK);
 
     testWin.setForegroundColour (Curses::Colour::magenta);
-    testWin.drawEllipse (5, 10, 20, 10);
+    testWin.drawEllipse (5, 10, 20, 10, ACS_BLOCK);
 
     testWin.setForegroundColour (Curses::Colour::blue);
-    testWin.drawEllipse (6, 11, 18, 8);
+    testWin.drawEllipse (6, 11, 18, 8, ACS_BLOCK);
 
     testWin.setForegroundColour (Curses::Colour::yellow);
-    testWin.drawEllipse (7, 12, 16, 6);
+    testWin.drawEllipse (7, 12, 16, 6, ACS_BLOCK);
+
+    testWin.setForegroundColour (Curses::Colour::black);
+    testWin.drawEllipse (8, 13, 14, 4, ACS_BLOCK);
 
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};

@@ -60,11 +60,12 @@ int Curses::getScreenHeight()
 
 Curses::ColourPair Curses::getColourPairIndex (Colour backgroundColour, Colour foregroundColour)
 {
-    return static_cast <short> (backgroundColour) + static_cast <short> (foregroundColour) * 8;
+    return static_cast <short> (backgroundColour) + static_cast <short> (foregroundColour) * 8 + 1;
 }
 
-Window::Window (int x, int y, int width, int height)
-    : window (newwin (height, width, y, x), delwin),
+Window::Window (int x, int y, int widthInit, int heightInit)
+    : width (widthInit), height (heightInit),
+      window (newwin (height, width, y, x), delwin),
       panel (new_panel (window.get()), del_panel),
       backgroundColour (Curses::Colour::black),
       foregroundColour (Curses::Colour::white)
@@ -73,7 +74,8 @@ Window::Window (int x, int y, int width, int height)
 }
 
 Window::Window (Window &&other)
-    : window (std::move (other.window)),
+    : width (other.width), height (other.height),
+      window (std::move (other.window)),
       panel (new_panel (window.get()), del_panel),
       backgroundColour (other.backgroundColour),
       foregroundColour (other.foregroundColour)
@@ -82,6 +84,9 @@ Window::Window (Window &&other)
 
 Window& Window::operator= (Window &&rhs)
 {
+    width = rhs.width;
+    height = rhs.height;
+
     window = std::move (rhs.window);
     panel = Curses::PanelPointer (new_panel (window.get()), del_panel);
 
@@ -100,11 +105,14 @@ void Window::move (int x, int y)
     move_panel (panel.get(), y, x);
 }
 
-void Window::resize (int x, int y, int width, int height)
+void Window::resize (int x, int y, int newWidth, int newHeight)
 {
-    Curses::WindowPointer tempWindow (newwin (height, width, y, x), delwin);
+    Curses::WindowPointer tempWindow (newwin (height, newWidth, y, x), delwin);
     replace_panel (panel.get(), tempWindow.get());
     window = std::move (tempWindow);
+
+    width = newWidth;
+    height = newHeight;
 }
 
 void Window::hide()
@@ -254,10 +262,10 @@ void Window::drawEllipse (int x, int y, int width, int height, const chtype char
                                    double circleLine = pow (1 - xValue * xValue, 0.5);
 
                                    *otherDimension = round (circleLine * otherScale + otherOffset);
-                                   mvwaddch (window.get(), plotY, plotX, character);
+                                   printCharacter (character, plotX, plotY);
 
                                    *otherDimension = round (-circleLine * otherScale + otherOffset);
-                                   mvwaddch (window.get(), plotY, plotX, character);
+                                   printCharacter (character, plotX, plotY);
                                };
     
         printCircleLine (i);
@@ -270,9 +278,27 @@ void Window::printInteger (int value, int x, int y)
     mvwprintw (window.get(), y, x, "%d", value);
 }
 
+void Window::fillAll(const chtype character)
+{
+    for (int x = 0; x < width; ++x)
+    {
+        drawLine (x, 0, x, height - 1, character);
+    }
+}
+
 void Window::clear()
 {
     werase (window.get());
+}
+
+int Window::getWidth()
+{
+    return width;
+}
+
+int Window::getHeight()
+{
+    return height;
 }
 
 Window::VideoAttributes Window::getVideoAttributes() const

@@ -58,7 +58,7 @@ public:
     void hide();
     void show();
     void move (int x, int y);
-    void resize (int x, int y, int width, int height);
+    void resize (int x, int y, int newWidth, int newHeight);
 
     void printCharacter (const chtype character);
     void printCharacter (const chtype character, int x, int y);
@@ -75,7 +75,11 @@ public:
     void drawLine (int staryX, int startY, int endX, int endY, const chtype character = ACS_BLOCK);
     void drawEllipse (int x, int y, int width, int height, const chtype character = '.');
 
+    void fillAll(const chtype character);
     void clear();
+
+    int getWidth();
+    int getHeight();
 
     struct VideoAttributes
     {
@@ -93,7 +97,9 @@ public:
     void setUnderline (bool setting);
 
 private:
-    Window (int x, int y, int width, int height);
+    Window (int x, int y, int widthInit, int heightInit);
+
+    int width, height;
 
     Curses::WindowPointer window;
     Curses::PanelPointer panel;

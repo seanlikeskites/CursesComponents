@@ -24,8 +24,6 @@ public:
 private:
     Window window;
 
-    int width, height;
-
     virtual void draw (Window &w) = 0;
     virtual void resized() = 0;
 };

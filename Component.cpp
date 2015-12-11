@@ -1,8 +1,7 @@
 #include "Component.hpp"
 
 Component::Component()
-    : window (Curses::getInstance().createWindow (0, 0, 0, 0)),
-      width (0), height (0)
+    : window (Curses::getInstance().createWindow (0, 0, 0, 0))
 {
 }
 
@@ -24,21 +23,18 @@ void Component::setBounds (int newX, int newY, int newWidth, int newHeight)
 {
     window.resize (newX, newY, newWidth, newHeight);
 
-    width = newWidth;
-    height = newHeight;
-
     resized();
     redraw();
 }
 
 int Component::getWidth()
 {
-    return width;
+    return window.getWidth();
 }
 
 int Component::getHeight()
 {
-    return height;
+    return window.getHeight();
 }
 
 void Component::hide()
