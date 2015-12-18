@@ -2,29 +2,35 @@
 #define TIMER_HPP_INCLUDED
 
 #include <thread>
-#include <atomic>
+#include <mutex>
+#include <condition_variable>
+#include <chrono>
 
 class Timer
 {
 public:
-    Timer()
+    Timer();
+    ~Timer();
 
-    ~Timer()
+    void startTimer (const std::chrono::milliseconds &newCallbackPeriod);
+    void stopTimer();
 
-    template <typename Rep>
-    void startTimer (const std::chrono::duration <Rep> &callbackPeriod)
-    {
-    }
-
-    void stopTimer()
-    {
-    }
+    virtual void timerCallback() = 0;
 
 private:
-    std::thread thread;
-    std::atomic_int controlFlag;
+    std::thread timerThread;
+    std::mutex controlMutex;
+    std::condition_variable controlCondition;
+    std::chrono::milliseconds callbackPeriod;
 
-    
+    enum class ControlState
+    {
+        Running,
+        Stopped,
+        Exit
+    } controlFlag;
+
+    void run();
 };
 
 #endif // TIMER_HPP_INCLUDED
