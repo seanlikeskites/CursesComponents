@@ -27,12 +27,12 @@ void Component::setBounds (int newX, int newY, int newWidth, int newHeight)
     redraw();
 }
 
-int Component::getWidth()
+int Component::getWidth() const
 {
     return window.getWidth();
 }
 
-int Component::getHeight()
+int Component::getHeight() const
 {
     return window.getHeight();
 }

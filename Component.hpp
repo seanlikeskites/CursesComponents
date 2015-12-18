@@ -13,8 +13,8 @@ public:
 
     void setBounds (int newX, int newY, int newWidth, int newHeight);
 
-    int getWidth();
-    int getHeight();
+    int getWidth() const;
+    int getHeight() const;
 
     void hide();
     void show();

@@ -48,12 +48,12 @@ Window Curses::createWindow (int x, int y, int width, int height)
     return Window (x, y, width, height);
 }
 
-int Curses::getScreenWidth()
+int Curses::getScreenWidth() const
 {
     return COLS;
 }
 
-int Curses::getScreenHeight()
+int Curses::getScreenHeight() const
 {
     return LINES;
 }
@@ -291,12 +291,12 @@ void Window::clear()
     werase (window.get());
 }
 
-int Window::getWidth()
+int Window::getWidth() const
 {
     return width;
 }
 
-int Window::getHeight()
+int Window::getHeight() const
 {
     return height;
 }

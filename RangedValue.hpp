@@ -76,27 +76,27 @@ public:
           bottomValue = newBottomValue;
     }
 
-    T getRange()
+    T getRange() const
     {
         return topValue - bottomValue;
     }
 
-    T getMinValue()
+    T getMinValue() const
     {
         return minValue;
     }
 
-    T getMaxValue()
+    T getMaxValue() const
     {
         return maxValue;
     }
 
-    T getBottomValue()
+    T getBottomValue() const
     {
         return bottomValue;
     }
 
-    T getTopValue()
+    T getTopValue() const
     {
         return topValue;
     }

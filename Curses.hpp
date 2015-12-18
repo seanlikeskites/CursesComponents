@@ -21,8 +21,8 @@ public:
 
     Window createWindow (int x, int y, int width, int height);
 
-    int getScreenWidth();
-    int getScreenHeight();
+    int getScreenWidth() const;
+    int getScreenHeight() const;
 
     enum class Colour : short
     {
@@ -78,8 +78,8 @@ public:
     void fillAll(const chtype character);
     void clear();
 
-    int getWidth();
-    int getHeight();
+    int getWidth() const;
+    int getHeight() const;
 
     struct VideoAttributes
     {
