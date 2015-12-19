@@ -13,6 +13,7 @@ public:
     ~Timer();
 
     void startTimer (const std::chrono::milliseconds &newCallbackPeriod);
+    void pauseTimer();
     void stopTimer();
 
     virtual void timerCallback() = 0;
@@ -26,8 +27,8 @@ private:
     enum class ControlState
     {
         Running,
-        Stopped,
-        Exit
+        Paused,
+        Stopped
     } controlFlag;
 
     void run();

@@ -1,48 +1,65 @@
 #include "Timer.hpp"
 
 Timer::Timer()
-    : timerThread ([this] () {run();}),
-      callbackPeriod (0),
+    : callbackPeriod (0),
       controlFlag (ControlState::Stopped)
 {
 }
 
 Timer::~Timer()
 {
-    std::unique_lock <std::mutex> lock (controlMutex);
-    controlFlag = ControlState::Exit;
-    lock.unlock();
-
-    timerThread.join();
+    stopTimer();
 }
 
 void Timer::startTimer (const std::chrono::milliseconds &newCallbackPeriod)
 {
     std::unique_lock <std::mutex> lock (controlMutex);
     callbackPeriod = newCallbackPeriod;
+
+    ControlState oldState = controlFlag;
     controlFlag = ControlState::Running;
+
+    if (oldState == ControlState::Stopped)
+    {
+        timerThread = std::thread ([this] () {run();});
+    }
+}
+
+void Timer::pauseTimer()
+{
+    std::unique_lock <std::mutex> lock (controlMutex);
+    controlFlag = ControlState::Paused;
+    controlCondition.notify_one();
 }
 
 void Timer::stopTimer()
 {
     std::unique_lock <std::mutex> lock (controlMutex);
     controlFlag = ControlState::Stopped;
+    controlCondition.notify_one();
+    lock.unlock();
+    timerThread.join();
 }
 
 void Timer::run()
 {
-    while (controlFlag != ControlState::Exit)
+    while (true)
     {
         std::unique_lock <std::mutex> lock (controlMutex);
 
-        if (controlFlag == ControlState::Running)
+        switch (controlFlag)
         {
-            timerCallback();
-            controlCondition.wait_for (lock, callbackPeriod);
-        }
-        else if (controlFlag == ControlState::Stopped)
-        {
-            std::this_thread::yield();
+            case ControlState::Running:
+                timerCallback();
+                controlCondition.wait_for (lock, callbackPeriod);
+                break;
+
+            case ControlState::Paused:
+                std::this_thread::yield();
+                break;
+
+            case ControlState::Stopped:
+                return;
         }
     }
 }
