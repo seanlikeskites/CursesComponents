@@ -8,6 +8,7 @@
 
 class Window;
 
+/** A singleton class which manages the lifetime of the ncurses library. */
 class Curses
 {
 public:
@@ -15,13 +16,24 @@ public:
     using PanelPointer = std::unique_ptr <PANEL, int(*)(PANEL*)>;
     using Instance = Curses&;
 
+    /** Destructor */
     ~Curses();
 
+    /** Get the singleton instance of the ncurses library. */
     static Curses& getInstance();
 
+    /** Create a new window. 
+     *
+     *  @param x the x position of the new window
+     *  @param y the y position of the new window
+     *  @param width the width of the new window
+     *  @param height the height of the new window
+     */
     Window createWindow (int x, int y, int width, int height);
 
+    /** Returns the width of the terminal in characters. */
     int getScreenWidth() const;
+    /** Returns the height of the terminal in characters. */
     int getScreenHeight() const;
 
     enum class Colour : short
