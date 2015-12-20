@@ -60,6 +60,7 @@ private:
     Curses& operator= (Curses&&) = delete;
 };
 
+/** An ncurses panel. */
 class Window
 {
 public:
