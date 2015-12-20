@@ -20,7 +20,7 @@ public:
     ~Curses();
 
     /** Get the singleton instance of the ncurses library. */
-    static Curses& getInstance();
+    static Instance getInstance();
 
     /** Create a new window. 
      *
@@ -36,16 +36,17 @@ public:
     /** Returns the height of the terminal in characters. */
     int getScreenHeight() const;
 
+    /** An enum type for the standard ncurses colours. */
     enum class Colour : short
     {
-        black = COLOR_BLACK,
-        red = COLOR_RED,
-        green = COLOR_GREEN,
-        yellow = COLOR_YELLOW,
-        blue = COLOR_BLUE,
-        magenta = COLOR_MAGENTA,
-        cyan = COLOR_CYAN,
-        white = COLOR_WHITE
+        black = COLOR_BLACK, /**< Black */
+        red = COLOR_RED, /**< Red */
+        green = COLOR_GREEN, /**< Green */
+        yellow = COLOR_YELLOW, /**< Yellow */
+        blue = COLOR_BLUE, /**< Blue */
+        magenta = COLOR_MAGENTA, /**< Magenta */
+        cyan = COLOR_CYAN, /**< Cyan */
+        white = COLOR_WHITE /**< White */
     };
 
     using ColourPair = short;
@@ -64,34 +65,114 @@ private:
 class Window
 {
 public:
+    /** Move Constructor */
     Window (Window &&other);
+    /** Move Assignment Operator */
     Window& operator= (Window &&rhs);
+    /** Destructor */
     ~Window();
 
+    /** Hide the window. */
     void hide();
+    /** Show the window. */
     void show();
+    /** Move the window to a new position. 
+     *
+     *  @param x the new x position
+     *  @param y the new y position
+     */
     void move (int x, int y);
+    /** Resize the window.
+     *
+     *  @param x the new x position
+     *  @param y the new y position
+     *  @param newWidth the new width
+     *  @param newHeight the new height
+     */
     void resize (int x, int y, int newWidth, int newHeight);
 
+    /** Print a character at the current cursor position.
+     *
+     *  @param character the character to print
+     */
     void printCharacter (const chtype character);
+    /** Print a character at the given position.
+     *
+     *  @param character the character to print
+     *  @param x the x position of the character
+     *  @param y the y position of the character
+     */
     void printCharacter (const chtype character, int x, int y);
 
+    /** Print a string at the current cursor position.
+     *
+     *  @param string the string to print
+     */
     void printString (const std::string &string);
+    /** Print a string at the given position.
+     *
+     *  @param string the string to print
+     *  @param x the x position of the string
+     *  @param y the y position of the string
+     */
     void printString (const std::string &string, int x, int y);
 
+    /** Print a floating point number at the current cursor position.
+     *
+     *  @param value the value to print
+     */
     void printDouble (double value);
+    /** Print a floating point number at the given position.
+     *
+     *  @param value the value to print
+     *  @param x the x position of the value
+     *  @param y the y position of the value
+     */
     void printDouble (double value, int x, int y);
 
+    /** Print an integer at the current cursor position.
+     *
+     *  @param value the value to print
+     */
     void printInteger (int value);
+    /** Print an integer at the given position.
+     *
+     *  @param value the value to print
+     *  @param x the x position of the value
+     *  @param y the y position of the value
+     */
     void printInteger (int value, int x, int y);
 
-    void drawLine (int staryX, int startY, int endX, int endY, const chtype character = ACS_BLOCK);
+    /** Draw a straight line.
+     *
+     *  @param startX the x position of the start of the line
+     *  @param startY the y position of the start of the line
+     *  @param endX the x position of the end of the line
+     *  @param endY the y position of the end of the line
+     *  @param character the character to use for printing the line
+     */
+    void drawLine (int startX, int startY, int endX, int endY, const chtype character = ACS_BLOCK);
+    /** Draw an ellipse.
+     *
+     *  @param x the x position
+     *  @param y the y position
+     *  @param width the width of the ellipse
+     *  @param height the height of the ellipse
+     *  @param character the character to use for printing the ellipse
+     */
     void drawEllipse (int x, int y, int width, int height, const chtype character = '.');
 
+    /** Fill the entire window with a character.
+     *  
+     *  @param character the character to print
+     */
     void fillAll(const chtype character);
+    /** Clear the window. */
     void clear();
 
+    /** Returns the windows width. */
     int getWidth() const;
+    /** Returns the windows height. */
     int getHeight() const;
 
     struct VideoAttributes
@@ -111,6 +192,8 @@ public:
 
 private:
     Window (int x, int y, int widthInit, int heightInit);
+    Window (Window &other) = delete;
+    Window& operator= (Window &rhs) = delete;
 
     int width, height;
 

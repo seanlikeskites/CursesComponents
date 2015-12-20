@@ -36,7 +36,7 @@ Curses::~Curses()
     endwin();
 }
 
-Curses& Curses::getInstance()
+Curses::Instance Curses::getInstance()
 {
     static Curses instance;
     return instance;
