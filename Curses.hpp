@@ -2,7 +2,7 @@
 #define CURSES_HPP_INCLUDED
 
 #include <memory>
-#include <unordered_set>
+#include <string>
 #include <curses.h>
 #include <panel.h>
 
