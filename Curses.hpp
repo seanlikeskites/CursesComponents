@@ -175,19 +175,52 @@ public:
     /** Returns the windows height. */
     int getHeight() const;
 
+    /** A structure which holds ncurses video attributes. */
     struct VideoAttributes
     {
-        attr_t attributes;
-        short colourPair;
+        attr_t attributes; /**< The attributes. */
+        short colourPair; /**< The colour pair. */
     };
 
+    /** Returns the currently set video attributes for this window. */
     VideoAttributes getVideoAttributes() const;
+    /** Sets the video attributes for this window. 
+     *
+     *  The new attributes will be applied to any drawing done on the window after this call.
+     *
+     *  @param attributes the new attributes to set.
+     */
     void setVideoAttributes (const VideoAttributes &attributes);
+    /** Set the background colour for this window.
+     *
+     *  The new colour will be applied to any drawing done on the window after this call.
+     *
+     *  @param newBackgroundColour the new background colour
+     */
     void setBackgroundColour (Curses::Colour newBackgroundColour);
+    /** Set the foreground colour for this window.
+     *
+     *  The new colour will be applied to any drawing done on the window after this call.
+     *
+     *  @param newForegroundColour the new foreground colour
+     */
     void setForegroundColour (Curses::Colour newForegroundColour);
+    /** Set the background and foreground colours for this window.
+     *
+     *  The new colours will be applied to any drawing done on the window after this call.
+     *
+     *  @param newBackgroundColour the new background colour
+     *  @param newForegroundColour the new foreground colour
+     */
     void setColours (Curses::Colour newBackgroundColour, Curses::Colour newForegroundColour);
 
+    /** Set the bold attribute for this window.
+     *  @param setting the setting of the bold attribute
+     */
     void setBold (bool setting);
+    /** Set the underline attribute for this window.
+     *  @param setting the setting of the underline attribute
+     */
     void setUnderline (bool setting);
 
 private:
