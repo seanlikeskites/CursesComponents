@@ -51,6 +51,15 @@ public:
 
     using ColourPair = short;
 
+    /** Return the index for a given pair of colours.
+     *
+     *  When the Curses singleton is first instantiated every possible pair of colours is
+     *  initialised to a given index. This function returns the index a particular pair
+     *  was initialised to.
+     *
+     *  @param backgroundColour the background colour of the pair
+     *  @param foregroundColour the foreground colour of the pair
+     */
     ColourPair getColourPairIndex (Colour backgroundColour, Colour foregroundColour);
 
 private:
