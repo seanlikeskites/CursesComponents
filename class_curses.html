@@ -141,6 +141,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2d8209f734547274b09a76899249935b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the height of the terminal in characters.  <a href="#a2d8209f734547274b09a76899249935b">More...</a><br /></td></tr>
 <tr class="separator:a2d8209f734547274b09a76899249935b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac977021f18a1bb5932aa29449d3d4eba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ac977021f18a1bb5932aa29449d3d4eba">getColourPairIndex</a> (<a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> backgroundColour, <a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> foregroundColour)</td></tr>
+<tr class="memdesc:ac977021f18a1bb5932aa29449d3d4eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index for a given pair of colours.  <a href="#ac977021f18a1bb5932aa29449d3d4eba">More...</a><br /></td></tr>
 <tr class="separator:ac977021f18a1bb5932aa29449d3d4eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -400,6 +401,16 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Return the index for a given pair of colours. </p>
+<p>When the <a class="el" href="class_curses.html" title="A singleton class which manages the lifetime of the ncurses library. ">Curses</a> singleton is first instantiated every possible pair of colours is initialised to a given index. This function returns the index a particular pair was initialised to.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">backgroundColour</td><td>the background colour of the pair </td></tr>
+    <tr><td class="paramname">foregroundColour</td><td>the foreground colour of the pair </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -408,7 +419,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 21 2015 11:22:25 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 21 2015 12:04:13 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
