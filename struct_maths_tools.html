@@ -95,17 +95,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">MathsTools Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Some useful maths functions.  
+ <a href="struct_maths_tools.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a311a3cdef04b140a1043aeeaecc624d7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a311a3cdef04b140a1043aeeaecc624d7"><td class="memTemplItemLeft" align="right" valign="top">static int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="struct_maths_tools.html#a311a3cdef04b140a1043aeeaecc624d7">sign</a> (T value)</td></tr>
+<tr class="memdesc:a311a3cdef04b140a1043aeeaecc624d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic implementation of the sign function.  <a href="#a311a3cdef04b140a1043aeeaecc624d7">More...</a><br /></td></tr>
 <tr class="separator:a311a3cdef04b140a1043aeeaecc624d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e420cd1f4afe18909f138543ea4e557"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a2e420cd1f4afe18909f138543ea4e557"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="struct_maths_tools.html#a2e420cd1f4afe18909f138543ea4e557">constrictValueToRange</a> (T value, T bottomValue, T topValue)</td></tr>
+<tr class="memdesc:a2e420cd1f4afe18909f138543ea4e557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constrict a value to a given range.  <a href="#a2e420cd1f4afe18909f138543ea4e557">More...</a><br /></td></tr>
 <tr class="separator:a2e420cd1f4afe18909f138543ea4e557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Some useful maths functions. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a311a3cdef04b140a1043aeeaecc624d7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -129,6 +136,15 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>A generic implementation of the sign function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the input value</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Returns -1 for a negative input, 0 for a 0 input and 1 for a positive input. </p>
 
 </div>
 </div>
@@ -172,6 +188,16 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
+<p>Constrict a value to a given range. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the input value </td></tr>
+    <tr><td class="paramname">bottomValue</td><td>one of the range boundaries </td></tr>
+    <tr><td class="paramname">topValue</td><td>the other range boundary </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
@@ -180,7 +206,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 21 2015 13:14:43 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 21 2015 13:53:09 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
