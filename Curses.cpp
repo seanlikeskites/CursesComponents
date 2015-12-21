@@ -228,6 +228,11 @@ void Window::drawLine (int startX, int startY, int endX, int endY, const chtype 
         otherIncrement = static_cast <double> (xRange) / static_cast <double> (abs (yRange));
     }
 
+    if (iterationIncrement == 0)
+    {
+        iterationIncrement = 1;
+    }
+
     Curses::Lock lock;
 
     for (; *iterationDimension != iterationEnd + iterationIncrement; *iterationDimension += iterationIncrement)

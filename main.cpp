@@ -44,7 +44,7 @@ int main()
 
     int sliderWidth = 5;
     int sliderHeights [numSliders] = {30, 26, 35, 19};
-    int sliderY = 2;
+    int sliderY = 0;
     int sliderX = 2;
 
     double sliderBottoms [numSliders] = {-4.0, 50.0, 37.6, 112.0};
@@ -57,7 +57,6 @@ int main()
         sliders [s].setRange (sliderBottoms [s], sliderTops [s], sliderSkews [s]);
         sliderX += sliderWidth;
     }
-
 
     int key;
     int sliderIndex = 0;

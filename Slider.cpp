@@ -109,7 +109,11 @@ void Slider::draw (Window &win)
     int y = height - 4;
     int middle = (width - 1) / 2;
 
-    for (double proportion = 0.0; proportion < proportionOfLength; proportion += increment)
+    win.drawBox (middle - 1, 0, 3, height - 2);
+
+    win.setForegroundColour (Curses::Colour::blue);
+
+    for (double proportion = 0.0; proportion <= proportionOfLength - increment; proportion += increment)
     {
         win.printCharacter (ACS_BLOCK, middle, y--);
     }
