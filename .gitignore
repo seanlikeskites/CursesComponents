@@ -1,0 +1,8 @@
+*.hpp
+*.cpp
+*.o
+*.swp
+makefile
+*.out
+test
+docs/*
