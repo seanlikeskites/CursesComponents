@@ -95,23 +95,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Timer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A timer class which calls a given function periodically.  
+ <a href="class_timer.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5f16e8da27d2a5a5242dead46de05d97"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a5f16e8da27d2a5a5242dead46de05d97">Timer</a> ()</td></tr>
+<tr class="memdesc:a5f16e8da27d2a5a5242dead46de05d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a5f16e8da27d2a5a5242dead46de05d97">More...</a><br /></td></tr>
 <tr class="separator:a5f16e8da27d2a5a5242dead46de05d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14fa469c4c295c5fa6e66a4ad1092146"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a14fa469c4c295c5fa6e66a4ad1092146">~Timer</a> ()</td></tr>
+<tr class="memdesc:a14fa469c4c295c5fa6e66a4ad1092146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a14fa469c4c295c5fa6e66a4ad1092146">More...</a><br /></td></tr>
 <tr class="separator:a14fa469c4c295c5fa6e66a4ad1092146"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70dc6395fd20b16a83678bb8b491bdee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a70dc6395fd20b16a83678bb8b491bdee">startTimer</a> (const std::chrono::milliseconds &amp;newCallbackPeriod)</td></tr>
+<tr class="memdesc:a70dc6395fd20b16a83678bb8b491bdee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the timer.  <a href="#a70dc6395fd20b16a83678bb8b491bdee">More...</a><br /></td></tr>
 <tr class="separator:a70dc6395fd20b16a83678bb8b491bdee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a311bbfc0bdf2893423678a76c6321132"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a311bbfc0bdf2893423678a76c6321132">pauseTimer</a> ()</td></tr>
+<tr class="memdesc:a311bbfc0bdf2893423678a76c6321132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pause the timer.  <a href="#a311bbfc0bdf2893423678a76c6321132">More...</a><br /></td></tr>
 <tr class="separator:a311bbfc0bdf2893423678a76c6321132"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27f97da1b1d19ad74a847703ca25c455"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a27f97da1b1d19ad74a847703ca25c455">stopTimer</a> ()</td></tr>
+<tr class="memdesc:a27f97da1b1d19ad74a847703ca25c455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the timer.  <a href="#a27f97da1b1d19ad74a847703ca25c455">More...</a><br /></td></tr>
 <tr class="separator:a27f97da1b1d19ad74a847703ca25c455"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8adc40ca0fb4170737ba12e30481b9d8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a8adc40ca0fb4170737ba12e30481b9d8">timerCallback</a> ()=0</td></tr>
+<tr class="memdesc:a8adc40ca0fb4170737ba12e30481b9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The timer callback.  <a href="#a8adc40ca0fb4170737ba12e30481b9d8">More...</a><br /></td></tr>
 <tr class="separator:a8adc40ca0fb4170737ba12e30481b9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A timer class which calls a given function periodically. </p>
+<p>Classes which inherit this class will have their implementation timerCallback called periodically. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5f16e8da27d2a5a5242dead46de05d97"></a>
 <div class="memitem">
 <div class="memproto">
@@ -124,6 +136,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor. </p>
 
 </div>
 </div>
@@ -139,6 +153,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Destructor. </p>
 
 </div>
 </div>
@@ -157,6 +173,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Start the timer. </p>
+<p>Starts the timer such that timerCallback will be called periodically using the provided period.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newCallbackPeriod</td><td>the new callback period</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>If the timer is currently stopped this involves the starting of a new thread. </p>
+
 </div>
 </div>
 <a class="anchor" id="a311bbfc0bdf2893423678a76c6321132"></a>
@@ -172,6 +198,9 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pause the timer. </p>
+<p>Causes the timer thread to busy sleep. The timerCallback will no longer get called by the thread will continue to run in the background. </p>
+
 </div>
 </div>
 <a class="anchor" id="a27f97da1b1d19ad74a847703ca25c455"></a>
@@ -186,6 +215,9 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Stop the timer. </p>
+<p>Causes the timer thread to exit. </p>
 
 </div>
 </div>
@@ -210,6 +242,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>The timer callback. </p>
+<p>Override this function to provide the things you want to happen periodically. </p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -218,7 +253,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 21 2015 12:04:13 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 21 2015 13:12:06 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
