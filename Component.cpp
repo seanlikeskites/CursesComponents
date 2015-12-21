@@ -15,8 +15,7 @@ void Component::redraw()
     Window::VideoAttributes attributeCache = window.getVideoAttributes();
     draw (window);
     window.setVideoAttributes (attributeCache);
-    update_panels();
-    doupdate();
+    Curses::getInstance().refreshScreen();
 }
 
 void Component::setBounds (int newX, int newY, int newWidth, int newHeight)

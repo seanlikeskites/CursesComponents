@@ -62,6 +62,21 @@ Curses::ColourPair Curses::getColourPairIndex (Colour backgroundColour, Colour f
     return static_cast <short> (backgroundColour) + static_cast <short> (foregroundColour) * 8 + 1;
 }
 
+void Curses::refreshScreen()
+{
+    update_panels();
+    doupdate();
+}
+
+Curses::Lock::Lock()
+    : lock (Curses::getInstance().protectionMutex)
+{
+}
+
+Curses::Lock::~Lock()
+{
+}
+
 Window::Window (int x, int y, int widthInit, int heightInit)
     : width (widthInit), height (heightInit),
       window (newwin (height, width, y, x), delwin),
@@ -101,11 +116,13 @@ Window::~Window()
 
 void Window::move (int x, int y)
 {
+    Curses::Lock lock;
     move_panel (panel.get(), y, x);
 }
 
 void Window::resize (int x, int y, int newWidth, int newHeight)
 {
+    Curses::Lock lock;
     Curses::WindowPointer tempWindow (newwin (height, newWidth, y, x), delwin);
     replace_panel (panel.get(), tempWindow.get());
     window = std::move (tempWindow);
@@ -116,47 +133,62 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
 
 void Window::hide()
 {
+    Curses::Lock lock;
     hide_panel (panel.get());
 }
 
 void Window::show()
 {
+    Curses::Lock lock;
     show_panel (panel.get());
 }
 
 void Window::printCharacter (const chtype character)
 {
+    Curses::Lock lock;
     waddch (window.get(), character);
 }
 
 void Window::printCharacter (const chtype character, int x, int y)
 {
+    Curses::Lock lock;
     mvwaddch (window.get(), y, x, character);
 }
 
 void Window::printString (const std::string &string)
 {
+    Curses::Lock lock;
     waddstr (window.get(), string.c_str());
 }
 
 void Window::printString (const std::string &string, int x, int y)
 {
+    Curses::Lock lock;
     mvwaddstr (window.get(), y, x, string.c_str());
 }
 
 void Window::printDouble (double value)
 {
+    Curses::Lock lock;
     wprintw (window.get(), "%.2f", value);
 }
 
 void Window::printDouble (double value, int x, int y)
 {
+    Curses::Lock lock;
     mvwprintw (window.get(), y, x, "%.2f", value);
 }
 
 void Window::printInteger (int value)
 {
+    Curses::Lock lock;
     wprintw (window.get(), "%d", value);
+}
+
+void Window::printInteger (int value, int x, int y)
+{
+    Curses::Lock lock;
+    mvwprintw (window.get(), y, x, "%d", value);
 }
 
 void Window::drawLine (int startX, int startY, int endX, int endY, const chtype character)
@@ -196,9 +228,11 @@ void Window::drawLine (int startX, int startY, int endX, int endY, const chtype 
         otherIncrement = static_cast <double> (xRange) / static_cast <double> (abs (yRange));
     }
 
+    Curses::Lock lock;
+
     for (; *iterationDimension != iterationEnd + iterationIncrement; *iterationDimension += iterationIncrement)
     {
-        mvwaddch (window.get(), y, x, character);
+        printCharacter (character, x, y);
         otherDimensionDouble += otherIncrement;
         *otherDimension = round (otherDimensionDouble);
     }
@@ -246,6 +280,8 @@ void Window::drawEllipse (int x, int y, int width, int height, const chtype char
 
     double iterationIncrement = 1.0 / (width * height);
 
+    Curses::Lock lock;
+
     for (double i = 0.0; i <= 1.0; i += iterationIncrement / 2.0)
     {
         auto printCircleLine = [iterationDimension,
@@ -272,13 +308,31 @@ void Window::drawEllipse (int x, int y, int width, int height, const chtype char
     }
 }
 
-void Window::printInteger (int value, int x, int y)
+void Window::drawBox (int x, int y, int width, int height)
 {
-    mvwprintw (window.get(), y, x, "%d", value);
+    Curses::Lock lock;
+    int rightX = x + width - 1;
+    int bottomY = y + height - 1;
+    printCharacter (ACS_ULCORNER, x, y);
+    printCharacter (ACS_LLCORNER, x, bottomY);
+    printCharacter (ACS_URCORNER, rightX, y);
+    printCharacter (ACS_LRCORNER, rightX, bottomY);
+
+    int horizontalStart = x + 1;
+    int horizontalEnd = rightX - 1;
+    drawLine (horizontalStart, y, horizontalEnd, y, ACS_HLINE);
+    drawLine (horizontalStart, bottomY, horizontalEnd, bottomY, ACS_HLINE);
+
+    int verticalStart = y + 1;
+    int verticalEnd = bottomY - 1;
+    drawLine (x, verticalStart, x, verticalEnd, ACS_VLINE);
+    drawLine (rightX, verticalStart, rightX, verticalEnd, ACS_VLINE);
 }
 
 void Window::fillAll(const chtype character)
 {
+    Curses::Lock lock;
+
     for (int x = 0; x < width; ++x)
     {
         drawLine (x, 0, x, height - 1, character);
@@ -287,6 +341,7 @@ void Window::fillAll(const chtype character)
 
 void Window::clear()
 {
+    Curses::Lock lock;
     werase (window.get());
 }
 
@@ -302,6 +357,7 @@ int Window::getHeight() const
 
 Window::VideoAttributes Window::getVideoAttributes() const
 {
+    Curses::Lock lock;
     VideoAttributes attributes;
     wattr_get (window.get(), &attributes.attributes, &attributes.colourPair, nullptr);
 
@@ -310,6 +366,7 @@ Window::VideoAttributes Window::getVideoAttributes() const
 
 void Window::setVideoAttributes (const VideoAttributes &attributes)
 {
+    Curses::Lock lock;
     wattr_set (window.get(), attributes.attributes, attributes.colourPair, nullptr);
 }
 
@@ -327,11 +384,14 @@ void Window::setColours (Curses::Colour newBackgroundColour, Curses::Colour newF
 {
     backgroundColour = newBackgroundColour;
     foregroundColour = newForegroundColour;
+
+    Curses::Lock lock;
     wattron (window.get(), COLOR_PAIR (Curses::getInstance().getColourPairIndex (backgroundColour, foregroundColour)));
 }
 
 void Window::setBold (bool setting)
 {
+    Curses::Lock lock;
     if (setting)
     {
         wattron (window.get(), A_BOLD);
@@ -344,6 +404,7 @@ void Window::setBold (bool setting)
 
 void Window::setUnderline (bool setting)
 {
+    Curses::Lock lock;
     if (setting)
     {
         wattron (window.get(), A_UNDERLINE);

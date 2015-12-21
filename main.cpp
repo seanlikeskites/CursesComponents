@@ -36,6 +36,9 @@ int main()
     testWin.setForegroundColour (Curses::Colour::black);
     testWin.drawEllipse (8, 13, 14, 4, ACS_BLOCK);
 
+    testWin.setColours (Curses::Colour::white, Curses::Colour::blue);
+    testWin.drawBox (2, 2, 10, 5);
+
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};
 

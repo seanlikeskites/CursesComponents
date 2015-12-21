@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <mutex>
 #include <curses.h>
 #include <panel.h>
 
@@ -62,12 +63,30 @@ public:
      */
     ColourPair getColourPairIndex (Colour backgroundColour, Colour foregroundColour);
 
+    /** Refresh the screens contents. */
+    void refreshScreen();
+
+    /** A class to protect calls to ncurses functions. */
+    class Lock
+    {
+    public:
+        /** Contructor */
+        Lock();
+        /** Destructor */
+        ~Lock();
+
+    private:
+        std::unique_lock <std::recursive_mutex> lock;
+    };
+
 private:
     Curses();
     Curses (const Curses&) = delete;
     Curses (Curses&&) = delete;
     Curses& operator= (const Curses&) = delete;
     Curses& operator= (Curses&&) = delete;
+
+    std::recursive_mutex protectionMutex;
 };
 
 /** An ncurses panel. */
@@ -170,6 +189,15 @@ public:
      *  @param character the character to use for printing the ellipse
      */
     void drawEllipse (int x, int y, int width, int height, const chtype character = '.');
+
+    /** Draw a box.
+     *
+     *  @param x the x position
+     *  @param y the y position
+     *  @param width the width of the box
+     *  @param height the height of the box
+     */
+    void drawBox (int x, int y, int width, int height);
 
     /** Fill the entire window with a character.
      *  
