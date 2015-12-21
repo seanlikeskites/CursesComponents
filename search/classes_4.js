@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timer',['Timer',['../class_timer.html',1,'']]]
+  ['slider',['Slider',['../class_slider.html',1,'']]]
 ];

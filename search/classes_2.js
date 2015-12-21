@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rangedvalue',['RangedValue',['../class_ranged_value.html',1,'']]],
-  ['rangedvalue_3c_20double_20_3e',['RangedValue&lt; double &gt;',['../class_ranged_value.html',1,'']]]
+  ['mathstools',['MathsTools',['../struct_maths_tools.html',1,'']]]
 ];

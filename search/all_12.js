@@ -1,9 +1,4 @@
 var searchData=
 [
-  ['_7ecomponent',['~Component',['../class_component.html#a2e9aa4348314d981f05f67397ad2f872',1,'Component']]],
-  ['_7ecurses',['~Curses',['../class_curses.html#afb0a88620967e3a5c0e16fabe412e60f',1,'Curses']]],
-  ['_7erangedvalue',['~RangedValue',['../class_ranged_value.html#ab328497a8f0366247bc29304dc1accbc',1,'RangedValue']]],
-  ['_7eslider',['~Slider',['../class_slider.html#aaca12abbe07a83f925d66339aa332028',1,'Slider']]],
-  ['_7etimer',['~Timer',['../class_timer.html#a14fa469c4c295c5fa6e66a4ad1092146',1,'Timer']]],
-  ['_7ewindow',['~Window',['../class_window.html#a245d821e6016fa1f6970ccbbedd635f6',1,'Window']]]
+  ['yellow',['yellow',['../class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5ad487dd0b55dfcacdd920ccbdaeafa351',1,'Curses']]]
 ];

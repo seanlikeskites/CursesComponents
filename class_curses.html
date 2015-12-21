@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -101,6 +102,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>A singleton class which manages the lifetime of the ncurses library.  
  <a href="class_curses.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses_1_1_lock.html">Lock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to protect calls to ncurses functions.  <a href="class_curses_1_1_lock.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:aa162e3d5b8100dbcfc8ea7441a7686f5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> : short { <br />
@@ -143,6 +150,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac977021f18a1bb5932aa29449d3d4eba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ac977021f18a1bb5932aa29449d3d4eba">getColourPairIndex</a> (<a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> backgroundColour, <a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> foregroundColour)</td></tr>
 <tr class="memdesc:ac977021f18a1bb5932aa29449d3d4eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index for a given pair of colours.  <a href="#ac977021f18a1bb5932aa29449d3d4eba">More...</a><br /></td></tr>
 <tr class="separator:ac977021f18a1bb5932aa29449d3d4eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7d6b86915c2b30179a7f6d70106ab87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#aa7d6b86915c2b30179a7f6d70106ab87">refreshScreen</a> ()</td></tr>
+<tr class="memdesc:aa7d6b86915c2b30179a7f6d70106ab87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh the screens contents.  <a href="#aa7d6b86915c2b30179a7f6d70106ab87">More...</a><br /></td></tr>
+<tr class="separator:aa7d6b86915c2b30179a7f6d70106ab87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -413,13 +423,30 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa7d6b86915c2b30179a7f6d70106ab87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Curses::refreshScreen </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Refresh the screens contents. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_curses_8hpp.html">Curses.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 21 2015 13:53:09 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 21 2015 19:55:07 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

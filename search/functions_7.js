@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['move',['move',['../class_window.html#a00f3bcd540087f25bf85fbc14260c6a6',1,'Window']]]
+  ['lock',['Lock',['../class_curses_1_1_lock.html#add1a00d1a304247d86d1faea4ae36d8f',1,'Curses::Lock']]]
 ];
