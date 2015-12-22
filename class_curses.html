@@ -124,6 +124,12 @@ Public Types</h2></td></tr>
  }<tr class="memdesc:aa162e3d5b8100dbcfc8ea7441a7686f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for the standard ncurses colours.  <a href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">More...</a><br /></td></tr>
 <tr class="separator:aa162e3d5b8100dbcfc8ea7441a7686f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </td></tr>
+<tr class="memitem:ae71322dc750addf13899894274bed0ea"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0ea">Cursor</a> : int { <a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0eaa334c4a4c42fdb79d7ebc3e73b517e6f8">Cursor::none</a>, 
+<a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0eaa46cf0e59759c9b7f1112ca4b174343ef">Cursor::visible</a>, 
+<a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0eaadeba220e97849136e67a85289b44cd3c">Cursor::highlyVisible</a>
+ }<tr class="memdesc:ae71322dc750addf13899894274bed0ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for cursor types.  <a href="class_curses.html#ae71322dc750addf13899894274bed0ea">More...</a><br /></td></tr>
+<tr class="separator:ae71322dc750addf13899894274bed0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</td></tr>
 <tr class="memitem:a6545c144ff6e06e7479854f7c00c8815"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a6545c144ff6e06e7479854f7c00c8815">WindowPointer</a> = std::unique_ptr&lt; WINDOW, int(*)(WINDOW *)&gt;</td></tr>
 <tr class="separator:a6545c144ff6e06e7479854f7c00c8815"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad743a292cc67243e55fc9e76c7668379"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ad743a292cc67243e55fc9e76c7668379">PanelPointer</a> = std::unique_ptr&lt; PANEL, int(*)(PANEL *)&gt;</td></tr>
@@ -150,6 +156,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac977021f18a1bb5932aa29449d3d4eba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ac977021f18a1bb5932aa29449d3d4eba">getColourPairIndex</a> (<a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> backgroundColour, <a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> foregroundColour)</td></tr>
 <tr class="memdesc:ac977021f18a1bb5932aa29449d3d4eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index for a given pair of colours.  <a href="#ac977021f18a1bb5932aa29449d3d4eba">More...</a><br /></td></tr>
 <tr class="separator:ac977021f18a1bb5932aa29449d3d4eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb664c1854764104c575cd6f377a7d4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#aeb664c1854764104c575cd6f377a7d4d">setCursor</a> (<a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0ea">Cursor</a> newCursor)</td></tr>
+<tr class="memdesc:aeb664c1854764104c575cd6f377a7d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the cursor type.  <a href="#aeb664c1854764104c575cd6f377a7d4d">More...</a><br /></td></tr>
+<tr class="separator:aeb664c1854764104c575cd6f377a7d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7d6b86915c2b30179a7f6d70106ab87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#aa7d6b86915c2b30179a7f6d70106ab87">refreshScreen</a> ()</td></tr>
 <tr class="memdesc:aa7d6b86915c2b30179a7f6d70106ab87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh the screens contents.  <a href="#aa7d6b86915c2b30179a7f6d70106ab87">More...</a><br /></td></tr>
 <tr class="separator:aa7d6b86915c2b30179a7f6d70106ab87"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -255,6 +264,39 @@ Static Public Member Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="aa162e3d5b8100dbcfc8ea7441a7686f5ad508fe45cecaf653904a0e774084bb5c"></a>white&#160;</td><td class="fielddoc">
 <p>White. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ae71322dc750addf13899894274bed0ea"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0ea">Curses::Cursor</a> : int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>An enum type for cursor types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ae71322dc750addf13899894274bed0eaa334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ae71322dc750addf13899894274bed0eaa46cf0e59759c9b7f1112ca4b174343ef"></a>visible&#160;</td><td class="fielddoc">
+<p>No cursor. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ae71322dc750addf13899894274bed0eaadeba220e97849136e67a85289b44cd3c"></a>highlyVisible&#160;</td><td class="fielddoc">
+<p>Underscore type cursor. </p>
+<p>Block type cursor </p>
 </td></tr>
 </table>
 
@@ -423,6 +465,30 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aeb664c1854764104c575cd6f377a7d4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Curses::setCursor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0ea">Cursor</a>&#160;</td>
+          <td class="paramname"><em>newCursor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the cursor type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newCursor</td><td>the cursor type to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="aa7d6b86915c2b30179a7f6d70106ab87"></a>
 <div class="memitem">
 <div class="memproto">
@@ -446,7 +512,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 21 2015 19:55:07 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 22 2015 10:39:07 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

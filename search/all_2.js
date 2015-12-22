@@ -9,5 +9,6 @@ var searchData=
   ['createwindow',['createWindow',['../class_curses.html#a25ff5cd744fab1956172d31fb2532e09',1,'Curses']]],
   ['curses',['Curses',['../class_curses.html',1,'Curses'],['../class_window.html#a5ce47a3926fa1ab268ec9601fd61d6d7',1,'Window::Curses()']]],
   ['curses_2ehpp',['Curses.hpp',['../_curses_8hpp.html',1,'']]],
+  ['cursor',['Cursor',['../class_curses.html#ae71322dc750addf13899894274bed0ea',1,'Curses']]],
   ['cyan',['cyan',['../class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5a6411532ba4971f378391776a9db629d3',1,'Curses']]]
 ];

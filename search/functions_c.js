@@ -4,6 +4,7 @@ var searchData=
   ['setbold',['setBold',['../class_window.html#acd23aa728a7e92d07f87281e4002485b',1,'Window']]],
   ['setbounds',['setBounds',['../class_component.html#a6d4056bda315801d23094b994c2ac55e',1,'Component']]],
   ['setcolours',['setColours',['../class_window.html#a128458ec679d9558242a34c1dfc0b63e',1,'Window']]],
+  ['setcursor',['setCursor',['../class_curses.html#aeb664c1854764104c575cd6f377a7d4d',1,'Curses']]],
   ['setforegroundcolour',['setForegroundColour',['../class_window.html#a5541f959575dc79824d234e7db034400',1,'Window']]],
   ['setproportionoflength',['setProportionOfLength',['../class_slider.html#aafd16446d8da02316861eb7c55490f5d',1,'Slider']]],
   ['setrange',['setRange',['../class_ranged_value.html#a55f5916a608fdb04627885bcff584b12',1,'RangedValue::setRange()'],['../class_slider.html#a85e3dcee077af0aa0873334a6414eb14',1,'Slider::setRange()']]],
