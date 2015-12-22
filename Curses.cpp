@@ -62,6 +62,11 @@ Curses::ColourPair Curses::getColourPairIndex (Colour backgroundColour, Colour f
     return static_cast <short> (backgroundColour) + static_cast <short> (foregroundColour) * 8 + 1;
 }
 
+void Curses::setCursor (Cursor newCursor)
+{
+    curs_set (static_cast <int> (newCursor));
+}
+
 void Curses::refreshScreen()
 {
     update_panels();

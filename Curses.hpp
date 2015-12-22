@@ -63,6 +63,20 @@ public:
      */
     ColourPair getColourPairIndex (Colour backgroundColour, Colour foregroundColour);
 
+    /** An enum type for cursor types. */
+    enum class Cursor : int
+    {
+        none, /** No cursor */
+        visible, /** Underscore type cursor */
+        highlyVisible /** Block type cursor */
+    };
+
+    /** Set the cursor type.
+     *  
+     *  @param newCursor the cursor type to use
+     */
+    void setCursor (Cursor newCursor);
+
     /** Refresh the screens contents. */
     void refreshScreen();
 

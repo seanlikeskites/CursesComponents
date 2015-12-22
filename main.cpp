@@ -2,7 +2,10 @@
 
 int main()
 {
-    Window testWin = Curses::getInstance().createWindow (30, 2, 30, 30);
+    Curses::Instance curses = Curses::getInstance();
+    curses.setCursor (Curses::Cursor::none);
+
+    Window testWin = curses.createWindow (30, 2, 30, 30);
 
     testWin.setForegroundColour (Curses::Colour::white);
     testWin.fillAll (ACS_BLOCK);
