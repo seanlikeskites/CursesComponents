@@ -2,7 +2,7 @@ SOURCES = main.cpp Curses.cpp Component.cpp Slider.cpp Timer.cpp
 OBJECTS = $(subst .cpp,.o, $(SOURCES))
 CXX = clang++
 CXXFLAGS = -std=c++14 -Wall -g
-LIBS = -lpanel -lcurses -lpthread
+LIBS = -lcurses -lpthread
 
 all: test
 

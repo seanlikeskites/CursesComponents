@@ -7,7 +7,6 @@
 Curses::Curses()
 {
     initscr();
-    keypad (stdscr, true);
     cbreak();
     noecho();
     start_color();
@@ -69,7 +68,7 @@ void Curses::setCursor (Cursor newCursor)
 
 void Curses::refreshScreen()
 {
-    update_panels();
+    Lock lock;
     doupdate();
 }
 
@@ -83,34 +82,38 @@ Curses::Lock::~Lock()
 }
 
 Window::Window (int x, int y, int widthInit, int heightInit)
-    : width (widthInit), height (heightInit),
-      window (newwin (height, width, y, x), delwin),
-      panel (new_panel (window.get()), del_panel),
+    : xPos (x), yPos (y),
+      width (widthInit), height (heightInit),
+      window (newpad (height, width), delwin),
       backgroundColour (Curses::Colour::black),
       foregroundColour (Curses::Colour::white)
 {
+    keypad (window.get(), true);
     setColours (backgroundColour, foregroundColour);
 }
 
 Window::Window (Window &&other)
-    : width (other.width), height (other.height),
+    : xPos (other.xPos), yPos (other.yPos),
+      width (other.width), height (other.height),
       window (std::move (other.window)),
-      panel (new_panel (window.get()), del_panel),
       backgroundColour (other.backgroundColour),
       foregroundColour (other.foregroundColour)
 {
+    setColours (backgroundColour, foregroundColour);
 }
 
 Window& Window::operator= (Window &&rhs)
 {
+    xPos = rhs.xPos;
+    yPos = rhs.yPos;
     width = rhs.width;
     height = rhs.height;
 
     window = std::move (rhs.window);
-    panel = Curses::PanelPointer (new_panel (window.get()), del_panel);
 
     backgroundColour = rhs.backgroundColour;
     foregroundColour = rhs.foregroundColour;
+    setColours (backgroundColour, foregroundColour);
 
     return *this;
 }
@@ -122,30 +125,36 @@ Window::~Window()
 void Window::move (int x, int y)
 {
     Curses::Lock lock;
-    move_panel (panel.get(), y, x);
+    xPos = x;
+    yPos = y;
 }
 
 void Window::resize (int x, int y, int newWidth, int newHeight)
 {
     Curses::Lock lock;
-    Curses::WindowPointer tempWindow (newwin (height, newWidth, y, x), delwin);
-    replace_panel (panel.get(), tempWindow.get());
-    window = std::move (tempWindow);
+    window.reset (newpad (newHeight, newWidth));
+    keypad (window.get(), true);
 
+    xPos = x;
+    yPos = y;
     width = newWidth;
     height = newHeight;
+}
+
+void Window::refresh ()
+{
+    Curses::Lock lock;
+    pnoutrefresh (window.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
 }
 
 void Window::hide()
 {
     Curses::Lock lock;
-    hide_panel (panel.get());
 }
 
 void Window::show()
 {
     Curses::Lock lock;
-    show_panel (panel.get());
 }
 
 void Window::printCharacter (const chtype character)
@@ -423,4 +432,9 @@ void Window::setUnderline (bool setting)
     {
         wattroff (window.get(), A_UNDERLINE);
     }
+}
+
+int Window::getCharacter()
+{
+    return wgetch (window.get());
 }

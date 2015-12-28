@@ -5,7 +5,6 @@
 #include <string>
 #include <mutex>
 #include <curses.h>
-#include <panel.h>
 
 class Window;
 
@@ -14,7 +13,6 @@ class Curses
 {
 public:
     using WindowPointer = std::unique_ptr <WINDOW, int(*)(WINDOW*)>;
-    using PanelPointer = std::unique_ptr <PANEL, int(*)(PANEL*)>;
     using Instance = Curses&;
 
     /** Destructor */
@@ -114,6 +112,7 @@ public:
     /** Destructor */
     ~Window();
 
+    void refresh ();
     /** Hide the window. */
     void hide();
     /** Show the window. */
@@ -274,15 +273,17 @@ public:
      */
     void setUnderline (bool setting);
 
+    int getCharacter();
+
 private:
     Window (int x, int y, int widthInit, int heightInit);
     Window (Window &other) = delete;
     Window& operator= (Window &rhs) = delete;
 
+    int xPos, yPos;
     int width, height;
 
     Curses::WindowPointer window;
-    Curses::PanelPointer panel;
 
     Curses::Colour backgroundColour, foregroundColour;
 

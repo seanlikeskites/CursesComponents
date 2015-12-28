@@ -15,13 +15,13 @@ void Component::redraw()
     Window::VideoAttributes attributeCache = window.getVideoAttributes();
     draw (window);
     window.setVideoAttributes (attributeCache);
-    Curses::getInstance().refreshScreen();
+    window.refresh();
+    doupdate();
 }
 
 void Component::setBounds (int newX, int newY, int newWidth, int newHeight)
 {
     window.resize (newX, newY, newWidth, newHeight);
-
     resized();
     redraw();
 }

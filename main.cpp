@@ -38,6 +38,9 @@ int main()
 
     testWin.setForegroundColour (Curses::Colour::black);
     testWin.drawEllipse (8, 13, 14, 4, ACS_BLOCK);
+    
+    testWin.refresh();
+    doupdate();
 
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};
@@ -61,7 +64,7 @@ int main()
     int key;
     int sliderIndex = 0;
 
-    while ((key = getch()) != '\n')
+    while ((key = testWin.getCharacter()) != '\n')
     {
         switch (key)
         {
@@ -80,7 +83,6 @@ int main()
                 break;
         }
     }
-
 
     return 0;
 }
