@@ -91,7 +91,7 @@ void Slider::keyPressed (int key)
     }
 }
 
-void Slider::draw (Window &win)
+void Slider::draw (Window::Pointer win)
 {
     int width = getWidth();
     int height = getHeight();
@@ -103,19 +103,19 @@ void Slider::draw (Window &win)
         nameStart = 0;
     }
 
-    win.printString (name, nameStart, height - 1);
-    win.printDouble (value, nameStart, height - 2);
+    win->printString (name, nameStart, height - 1);
+    win->printDouble (value, nameStart, height - 2);
 
     int y = height - 4;
     int middle = (width - 1) / 2;
 
-    win.drawBox (middle - 1, 0, 3, height - 2);
+    win->drawBox (middle - 1, 0, 3, height - 2);
 
-    win.setForegroundColour (Curses::Colour::blue);
+    win->setForegroundColour (Curses::Colour::blue);
 
     for (double proportion = 0.0; proportion <= proportionOfLength - increment; proportion += increment)
     {
-        win.printCharacter (ACS_BLOCK, middle, y--);
+        win->printCharacter (ACS_BLOCK, middle, y--);
     }
 }
 

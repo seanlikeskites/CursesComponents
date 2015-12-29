@@ -49,9 +49,11 @@ int Curses::getInputCharacter()
     return getch();
 }
 
-Window Curses::createWindow (int x, int y, int width, int height)
+Window::Pointer Curses::createWindow (int x, int y, int width, int height)
 {
-    return Window (x, y, width, height);
+    Window::Pointer newWindow = std::make_shared <Window> (Window (x, y, width, height));
+    windows.push_back (newWindow);
+    return newWindow;
 }
 
 int Curses::getScreenWidth() const
@@ -94,6 +96,7 @@ Window::Window (int x, int y, int widthInit, int heightInit)
       width (widthInit), height (heightInit),
       visible (true),
       window (newpad (height, width), delwin),
+      blankWindow (newpad (height, width), delwin),
       backgroundColour (Curses::Colour::black),
       foregroundColour (Curses::Colour::white)
 {
@@ -105,6 +108,7 @@ Window::Window (Window &&other)
       width (other.width), height (other.height),
       visible (other.visible),
       window (std::move (other.window)),
+      blankWindow (std::move (other.blankWindow)),
       backgroundColour (other.backgroundColour),
       foregroundColour (other.foregroundColour)
 {
@@ -121,6 +125,7 @@ Window& Window::operator= (Window &&rhs)
     visible = rhs.visible;
 
     window = std::move (rhs.window);
+    blankWindow = std::move (rhs.blankWindow);
 
     backgroundColour = rhs.backgroundColour;
     foregroundColour = rhs.foregroundColour;
@@ -144,6 +149,7 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
 {
     Curses::Lock lock;
     window.reset (newpad (newHeight, newWidth));
+    blankWindow.reset (newpad (newHeight, newWidth));
 
     xPos = x;
     yPos = y;
@@ -153,21 +159,28 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
 
 void Window::refresh ()
 {
+    Curses::Lock lock;
+
     if (visible)
     {
-        Curses::Lock lock;
         pnoutrefresh (window.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
+    }
+    else
+    {
+        pnoutrefresh (blankWindow.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
     }
 }
 
 void Window::hide()
 {
     visible = false;
+    refresh();
 }
 
 void Window::show()
 {
     visible = true;
+    refresh();
 }
 
 void Window::printCharacter (const chtype character)

@@ -34,7 +34,7 @@ private:
 
     int sliderHeight;
 
-    void draw (Window &win) override;
+    void draw (Window::Pointer win) override;
     void resized() override;
 };
 

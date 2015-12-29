@@ -22,9 +22,9 @@ public:
     virtual void keyPressed (int key) = 0;
 
 private:
-    Window window;
+    Window::Pointer window;
 
-    virtual void draw (Window &w) = 0;
+    virtual void draw (Window::Pointer w) = 0;
     virtual void resized() = 0;
 };
 

@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <mutex>
+#include <vector>
 #include <curses.h>
 
 class Window;
@@ -30,7 +31,7 @@ public:
      *  @param width the width of the new window
      *  @param height the height of the new window
      */
-    Window createWindow (int x, int y, int width, int height);
+    std::shared_ptr <Window> createWindow (int x, int y, int width, int height);
 
     /** Returns the width of the terminal in characters. */
     int getScreenWidth() const;
@@ -101,12 +102,16 @@ private:
     Curses& operator= (Curses&&) = delete;
 
     std::recursive_mutex protectionMutex;
+
+    std::vector <std::shared_ptr <Window>> windows;
 };
 
-/** An ncurses panel. */
+/** An ncurses window. */
 class Window
 {
 public:
+    using Pointer = std::shared_ptr <Window>;
+
     /** Move Constructor */
     Window (Window &&other);
     /** Move Assignment Operator */
@@ -288,6 +293,7 @@ private:
     bool visible;
 
     Curses::PadPointer window;
+    Curses::PadPointer blankWindow;
 
     Curses::Colour backgroundColour, foregroundColour;
 
