@@ -12,7 +12,7 @@ class Window;
 class Curses
 {
 public:
-    using WindowPointer = std::unique_ptr <WINDOW, int(*)(WINDOW*)>;
+    using PadPointer = std::unique_ptr <WINDOW, int(*)(WINDOW*)>;
     using Instance = Curses&;
 
     /** Destructor */
@@ -20,6 +20,8 @@ public:
 
     /** Get the singleton instance of the ncurses library. */
     static Instance getInstance();
+
+    int getInputCharacter();
 
     /** Create a new window. 
      *
@@ -283,7 +285,9 @@ private:
     int xPos, yPos;
     int width, height;
 
-    Curses::WindowPointer window;
+    bool visible;
+
+    Curses::PadPointer window;
 
     Curses::Colour backgroundColour, foregroundColour;
 

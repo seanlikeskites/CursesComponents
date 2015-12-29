@@ -10,6 +10,7 @@ Curses::Curses()
     cbreak();
     noecho();
     start_color();
+    keypad (stdscr, true);
 
     std::array <Colour, 8> colours {{Colour::black,
                                      Colour::red,
@@ -28,6 +29,8 @@ Curses::Curses()
             init_pair (pairIndex, static_cast <short> (foreground), static_cast <short> (background));
         }
     }
+
+    refresh();
 }
 
 Curses::~Curses()
@@ -39,6 +42,11 @@ Curses::Instance Curses::getInstance()
 {
     static Curses instance;
     return instance;
+}
+
+int Curses::getInputCharacter()
+{
+    return getch();
 }
 
 Window Curses::createWindow (int x, int y, int width, int height)
@@ -84,17 +92,18 @@ Curses::Lock::~Lock()
 Window::Window (int x, int y, int widthInit, int heightInit)
     : xPos (x), yPos (y),
       width (widthInit), height (heightInit),
+      visible (true),
       window (newpad (height, width), delwin),
       backgroundColour (Curses::Colour::black),
       foregroundColour (Curses::Colour::white)
 {
-    keypad (window.get(), true);
     setColours (backgroundColour, foregroundColour);
 }
 
 Window::Window (Window &&other)
     : xPos (other.xPos), yPos (other.yPos),
       width (other.width), height (other.height),
+      visible (other.visible),
       window (std::move (other.window)),
       backgroundColour (other.backgroundColour),
       foregroundColour (other.foregroundColour)
@@ -108,6 +117,8 @@ Window& Window::operator= (Window &&rhs)
     yPos = rhs.yPos;
     width = rhs.width;
     height = rhs.height;
+
+    visible = rhs.visible;
 
     window = std::move (rhs.window);
 
@@ -133,7 +144,6 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
 {
     Curses::Lock lock;
     window.reset (newpad (newHeight, newWidth));
-    keypad (window.get(), true);
 
     xPos = x;
     yPos = y;
@@ -143,18 +153,21 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
 
 void Window::refresh ()
 {
-    Curses::Lock lock;
-    pnoutrefresh (window.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
+    if (visible)
+    {
+        Curses::Lock lock;
+        pnoutrefresh (window.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
+    }
 }
 
 void Window::hide()
 {
-    Curses::Lock lock;
+    visible = false;
 }
 
 void Window::show()
 {
-    Curses::Lock lock;
+    visible = true;
 }
 
 void Window::printCharacter (const chtype character)

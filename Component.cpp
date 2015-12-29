@@ -16,7 +16,7 @@ void Component::redraw()
     draw (window);
     window.setVideoAttributes (attributeCache);
     window.refresh();
-    doupdate();
+    //doupdate();
 }
 
 void Component::setBounds (int newX, int newY, int newWidth, int newHeight)

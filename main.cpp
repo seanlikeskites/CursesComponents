@@ -40,7 +40,6 @@ int main()
     testWin.drawEllipse (8, 13, 14, 4, ACS_BLOCK);
     
     testWin.refresh();
-    doupdate();
 
     const int numSliders = 4;
     Slider sliders [numSliders] = {{"Ham"}, {"Jam"}, {"Hats"}, {"Cake"}};
@@ -64,7 +63,9 @@ int main()
     int key;
     int sliderIndex = 0;
 
-    while ((key = testWin.getCharacter()) != '\n')
+    curses.refreshScreen();
+
+    while ((key = curses.getInputCharacter()) != '\n')
     {
         switch (key)
         {
@@ -78,10 +79,20 @@ int main()
                 sliderIndex = (sliderIndex + numSliders) % numSliders;
                 break;
 
+            case 'h':
+                testWin.hide();
+                break;
+
+            case 's':
+                testWin.show();
+                break;
+
             default:
                 sliders [sliderIndex].keyPressed (key);
                 break;
         }
+
+        curses.refreshScreen();
     }
 
     return 0;
