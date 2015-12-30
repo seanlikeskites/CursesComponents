@@ -5,7 +5,7 @@ int main()
     Curses::Instance curses = Curses::getInstance();
     curses.setCursor (Curses::Cursor::none);
 
-    Window::Pointer testWin = curses.createWindow (30, 2, 30, 30);
+    Window::Pointer testWin = curses.createTopLevelWindow (2, 2, 30, 30);
 
     testWin->setForegroundColour (Curses::Colour::white);
     testWin->fillAll (ACS_BLOCK);

@@ -31,6 +31,8 @@ Curses::Curses()
     }
 
     refresh();
+
+    mainWindow.reset (new Window (0, 0, getScreenWidth(), getScreenHeight(), nullptr, nullptr));
 }
 
 Curses::~Curses()
@@ -49,25 +51,10 @@ int Curses::getInputCharacter()
     return getch();
 }
 
-Window::Pointer Curses::createWindow (int x, int y, int width, int height)
+Window::Pointer Curses::createTopLevelWindow (int x, int y, int width, int height)
 {
     Lock lock;
-
-    Window::Pointer newWindow = std::make_shared <Window> (Window (x, y, width, height, topWindow, nullptr));
-
-    if (bottomWindow == nullptr)
-    {
-        bottomWindow = newWindow;
-    }
-
-    if (topWindow != nullptr)
-    {
-        topWindow->nextWindow = newWindow;
-    }
-
-    topWindow = newWindow;
-
-    return newWindow;
+    return mainWindow->createChildWindow (x, y, width, height);
 }
 
 int Curses::getScreenWidth() const
@@ -97,7 +84,7 @@ void Curses::refreshScreen()
 }
 
 Curses::Lock::Lock()
-    : lock (Curses::getInstance().protectionMutex)
+    : lock (Curses::protectionMutex)
 {
 }
 
@@ -105,7 +92,10 @@ Curses::Lock::~Lock()
 {
 }
 
-Window::Window (int x, int y, int widthInit, int heightInit, Pointer previousWindowInit, Pointer nextWindowInit)
+std::recursive_mutex Curses::protectionMutex;
+
+Window::Window (int x, int y, int widthInit, int heightInit, 
+                Window *parentInit, Window *nextSiblingInit)
     : xPos (x), yPos (y),
       width (widthInit), height (heightInit),
       visible (true),
@@ -113,50 +103,36 @@ Window::Window (int x, int y, int widthInit, int heightInit, Pointer previousWin
       blankWindow (newpad (height, width), delwin),
       backgroundColour (Curses::Colour::black),
       foregroundColour (Curses::Colour::white),
-      previousWindow (previousWindowInit),
-      nextWindow (nextWindowInit)
+      parent (parentInit),
+      nextSibling (nextSiblingInit),
+      bottomChild (nullptr),
+      topChild (nullptr)
 {
     setColours (backgroundColour, foregroundColour);
-}
-
-Window::Window (Window &&other)
-    : xPos (other.xPos), yPos (other.yPos),
-      width (other.width), height (other.height),
-      visible (other.visible),
-      window (std::move (other.window)),
-      blankWindow (std::move (other.blankWindow)),
-      backgroundColour (other.backgroundColour),
-      foregroundColour (other.foregroundColour),
-      previousWindow (other.previousWindow),
-      nextWindow (other.nextWindow)
-{
-    setColours (backgroundColour, foregroundColour);
-}
-
-Window& Window::operator= (Window &&rhs)
-{
-    xPos = rhs.xPos;
-    yPos = rhs.yPos;
-    width = rhs.width;
-    height = rhs.height;
-
-    visible = rhs.visible;
-
-    window = std::move (rhs.window);
-    blankWindow = std::move (rhs.blankWindow);
-
-    backgroundColour = rhs.backgroundColour;
-    foregroundColour = rhs.foregroundColour;
-    setColours (backgroundColour, foregroundColour);
-    
-    previousWindow = rhs.previousWindow;
-    nextWindow = rhs.nextWindow;
-
-    return *this;
 }
 
 Window::~Window()
 {
+}
+
+Window::Pointer Window::createChildWindow (int x, int y, int width, int height)
+{
+    Curses::Lock lock;
+    Window::Pointer newWindow (new Window (x, y, width, height, this, nullptr));
+
+    if (bottomChild == nullptr)
+    {
+        bottomChild = newWindow.get();
+    }
+
+    if (topChild != nullptr)
+    {
+        topChild->nextSibling = newWindow.get();
+    }
+
+    topChild = newWindow.get();
+
+    return newWindow;
 }
 
 void Window::move (int x, int y)
@@ -191,9 +167,9 @@ void Window::refresh ()
         pnoutrefresh (blankWindow.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
     }
 
-    if (nextWindow != nullptr)
+    if (nextSibling != nullptr)
     {
-        nextWindow->refresh();
+        nextSibling->refresh();
     }
 }
 
@@ -457,7 +433,7 @@ void Window::setColours (Curses::Colour newBackgroundColour, Curses::Colour newF
     foregroundColour = newForegroundColour;
 
     Curses::Lock lock;
-    wattron (window.get(), COLOR_PAIR (Curses::getInstance().getColourPairIndex (backgroundColour, foregroundColour)));
+    wattron (window.get(), COLOR_PAIR (Curses::getColourPairIndex (backgroundColour, foregroundColour)));
 }
 
 void Window::setBold (bool setting)

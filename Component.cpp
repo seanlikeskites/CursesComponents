@@ -1,7 +1,7 @@
 #include "Component.hpp"
 
 Component::Component()
-    : window (Curses::getInstance().createWindow (0, 0, 0, 0))
+    : window (Curses::getInstance().createTopLevelWindow (0, 0, 0, 0))
 {
 }
 

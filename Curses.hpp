@@ -31,7 +31,7 @@ public:
      *  @param width the width of the new window
      *  @param height the height of the new window
      */
-    std::shared_ptr <Window> createWindow (int x, int y, int width, int height);
+    std::shared_ptr <Window> createTopLevelWindow (int x, int y, int width, int height);
 
     /** Returns the width of the terminal in characters. */
     int getScreenWidth() const;
@@ -62,7 +62,7 @@ public:
      *  @param backgroundColour the background colour of the pair
      *  @param foregroundColour the foreground colour of the pair
      */
-    ColourPair getColourPairIndex (Colour backgroundColour, Colour foregroundColour);
+    static ColourPair getColourPairIndex (Colour backgroundColour, Colour foregroundColour);
 
     /** An enum type for cursor types. */
     enum class Cursor : int
@@ -101,9 +101,9 @@ private:
     Curses& operator= (const Curses&) = delete;
     Curses& operator= (Curses&&) = delete;
 
-    std::recursive_mutex protectionMutex;
+    static std::recursive_mutex protectionMutex;
 
-    std::shared_ptr <Window> bottomWindow, topWindow;
+    std::unique_ptr <Window> mainWindow;
 };
 
 /** An ncurses window. */
@@ -112,12 +112,10 @@ class Window
 public:
     using Pointer = std::shared_ptr <Window>;
 
-    /** Move Constructor */
-    Window (Window &&other);
-    /** Move Assignment Operator */
-    Window& operator= (Window &&rhs);
     /** Destructor */
     ~Window();
+
+    Pointer createChildWindow (int x, int y, int width, int height);
 
     void refresh ();
     /** Hide the window. */
@@ -283,7 +281,8 @@ public:
     int getCharacter();
 
 private:
-    Window (int x, int y, int widthInit, int heightInit, Pointer previousWindowInit, Pointer nextWindowInit);
+    Window (int x, int y, int widthInit, int heightInit, 
+            Window *parentInit, Window *nextSiblingInit);
     Window (Window &other) = delete;
     Window& operator= (Window &rhs) = delete;
 
@@ -297,7 +296,9 @@ private:
 
     Curses::Colour backgroundColour, foregroundColour;
 
-    Pointer previousWindow, nextWindow;
+    Window *parent;
+    Window *nextSibling;
+    Window *bottomChild, *topChild;
 
     friend class Curses;
 };
