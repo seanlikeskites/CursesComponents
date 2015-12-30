@@ -51,8 +51,22 @@ int Curses::getInputCharacter()
 
 Window::Pointer Curses::createWindow (int x, int y, int width, int height)
 {
-    Window::Pointer newWindow = std::make_shared <Window> (Window (x, y, width, height));
-    windows.push_back (newWindow);
+    Lock lock;
+
+    Window::Pointer newWindow = std::make_shared <Window> (Window (x, y, width, height, topWindow, nullptr));
+
+    if (bottomWindow == nullptr)
+    {
+        bottomWindow = newWindow;
+    }
+
+    if (topWindow != nullptr)
+    {
+        topWindow->nextWindow = newWindow;
+    }
+
+    topWindow = newWindow;
+
     return newWindow;
 }
 
@@ -91,14 +105,16 @@ Curses::Lock::~Lock()
 {
 }
 
-Window::Window (int x, int y, int widthInit, int heightInit)
+Window::Window (int x, int y, int widthInit, int heightInit, Pointer previousWindowInit, Pointer nextWindowInit)
     : xPos (x), yPos (y),
       width (widthInit), height (heightInit),
       visible (true),
       window (newpad (height, width), delwin),
       blankWindow (newpad (height, width), delwin),
       backgroundColour (Curses::Colour::black),
-      foregroundColour (Curses::Colour::white)
+      foregroundColour (Curses::Colour::white),
+      previousWindow (previousWindowInit),
+      nextWindow (nextWindowInit)
 {
     setColours (backgroundColour, foregroundColour);
 }
@@ -110,7 +126,9 @@ Window::Window (Window &&other)
       window (std::move (other.window)),
       blankWindow (std::move (other.blankWindow)),
       backgroundColour (other.backgroundColour),
-      foregroundColour (other.foregroundColour)
+      foregroundColour (other.foregroundColour),
+      previousWindow (other.previousWindow),
+      nextWindow (other.nextWindow)
 {
     setColours (backgroundColour, foregroundColour);
 }
@@ -130,6 +148,9 @@ Window& Window::operator= (Window &&rhs)
     backgroundColour = rhs.backgroundColour;
     foregroundColour = rhs.foregroundColour;
     setColours (backgroundColour, foregroundColour);
+    
+    previousWindow = rhs.previousWindow;
+    nextWindow = rhs.nextWindow;
 
     return *this;
 }
@@ -168,6 +189,11 @@ void Window::refresh ()
     else
     {
         pnoutrefresh (blankWindow.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
+    }
+
+    if (nextWindow != nullptr)
+    {
+        nextWindow->refresh();
     }
 }
 

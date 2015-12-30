@@ -103,7 +103,7 @@ private:
 
     std::recursive_mutex protectionMutex;
 
-    std::vector <std::shared_ptr <Window>> windows;
+    std::shared_ptr <Window> bottomWindow, topWindow;
 };
 
 /** An ncurses window. */
@@ -283,7 +283,7 @@ public:
     int getCharacter();
 
 private:
-    Window (int x, int y, int widthInit, int heightInit);
+    Window (int x, int y, int widthInit, int heightInit, Pointer previousWindowInit, Pointer nextWindowInit);
     Window (Window &other) = delete;
     Window& operator= (Window &rhs) = delete;
 
@@ -296,6 +296,8 @@ private:
     Curses::PadPointer blankWindow;
 
     Curses::Colour backgroundColour, foregroundColour;
+
+    Pointer previousWindow, nextWindow;
 
     friend class Curses;
 };
