@@ -118,7 +118,7 @@ Window::~Window()
 Window::Pointer Window::createChildWindow (int x, int y, int width, int height)
 {
     Curses::Lock lock;
-    Window::Pointer newWindow (new Window (x, y, width, height, this, nullptr));
+    Window::Pointer newWindow (new Window (x + xPos, y + yPos, width, height, this, nullptr));
 
     if (bottomChild == nullptr)
     {
@@ -138,8 +138,8 @@ Window::Pointer Window::createChildWindow (int x, int y, int width, int height)
 void Window::move (int x, int y)
 {
     Curses::Lock lock;
-    xPos = x;
-    yPos = y;
+    xPos = x + parent->xPos;
+    yPos = y + parent->yPos;
 }
 
 void Window::resize (int x, int y, int newWidth, int newHeight)
@@ -148,8 +148,8 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
     window.reset (newpad (newHeight, newWidth));
     blankWindow.reset (newpad (newHeight, newWidth));
 
-    xPos = x;
-    yPos = y;
+    xPos = x + parent->xPos;
+    yPos = y + parent->yPos;
     width = newWidth;
     height = newHeight;
 }
