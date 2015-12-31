@@ -173,8 +173,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a057413677b9c4cb94698521981f90508"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a box.  <a href="#a057413677b9c4cb94698521981f90508">More...</a><br /></td></tr>
 <tr class="separator:a057413677b9c4cb94698521981f90508"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e292953c195d5ba4a9e39114b6dc483"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a7e292953c195d5ba4a9e39114b6dc483">fillAll</a> (const chtype character)</td></tr>
-<tr class="memdesc:a7e292953c195d5ba4a9e39114b6dc483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the entire window with a character.  <a href="#a7e292953c195d5ba4a9e39114b6dc483">More...</a><br /></td></tr>
+<tr class="memdesc:a7e292953c195d5ba4a9e39114b6dc483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the entire window with a given character.  <a href="#a7e292953c195d5ba4a9e39114b6dc483">More...</a><br /></td></tr>
 <tr class="separator:a7e292953c195d5ba4a9e39114b6dc483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac81516aa1c916e7dce1b3c3fc145781e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#ac81516aa1c916e7dce1b3c3fc145781e">fillWithColour</a> (<a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Curses::Colour</a> colour, bool setBackground=true)</td></tr>
+<tr class="memdesc:ac81516aa1c916e7dce1b3c3fc145781e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the entire window with a given colour.  <a href="#ac81516aa1c916e7dce1b3c3fc145781e">More...</a><br /></td></tr>
+<tr class="separator:ac81516aa1c916e7dce1b3c3fc145781e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38bc43bdd1a97e5de7f346ba4c3957ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a38bc43bdd1a97e5de7f346ba4c3957ef">clear</a> ()</td></tr>
 <tr class="memdesc:a38bc43bdd1a97e5de7f346ba4c3957ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the window.  <a href="#a38bc43bdd1a97e5de7f346ba4c3957ef">More...</a><br /></td></tr>
 <tr class="separator:a38bc43bdd1a97e5de7f346ba4c3957ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -870,10 +873,45 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fill the entire window with a character. </p>
+<p>Fill the entire window with a given character. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">character</td><td>the character to print </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac81516aa1c916e7dce1b3c3fc145781e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Window::fillWithColour </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Curses::Colour</a>&#160;</td>
+          <td class="paramname"><em>colour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>setBackground</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fill the entire window with a given colour. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">colour</td><td>the colour to paint the window </td></tr>
+    <tr><td class="paramname">setBackground</td><td>if true the background colour of the window will also be set to this colour </td></tr>
   </table>
   </dd>
 </dl>
@@ -1134,7 +1172,7 @@ Friends</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 31 2015 14:40:13 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 31 2015 17:21:45 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

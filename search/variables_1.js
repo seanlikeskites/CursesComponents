@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['colourpair',['colourPair',['../struct_window_1_1_video_attributes.html#a19ee02763ea0785126eef590b90f9b98',1,'Window::VideoAttributes']]]
+  ['backgroundcolour',['backgroundColour',['../struct_window_1_1_video_attributes.html#abdc15812b669fb76472278539e0371ed',1,'Window::VideoAttributes']]]
 ];
