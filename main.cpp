@@ -5,7 +5,7 @@ int main()
     Curses::Instance curses = Curses::getInstance();
     curses.setCursor (Curses::Cursor::none);
 
-    Window::Pointer testWin = curses.createTopLevelWindow (2, 2, 30, 30);
+    Window::Pointer testWin = curses.createTopLevelWindow (30, 2, 30, 30);
 
     testWin->setForegroundColour (Curses::Colour::white);
     testWin->fillAll (ACS_BLOCK);
@@ -38,6 +38,13 @@ int main()
 
     testWin->setForegroundColour (Curses::Colour::black);
     testWin->drawEllipse (8, 13, 14, 4, ACS_BLOCK);
+
+
+    int childX = 2;
+    int childY = 2;
+    Window::Pointer testChild = testWin->createChildWindow (childX, childY, 35, 5);
+    testChild->setForegroundColour (Curses::Colour::magenta);
+    testChild->fillAll (ACS_BLOCK);
     
     testWin->refresh();
 
@@ -83,8 +90,24 @@ int main()
                 testWin->hide();
                 break;
 
-            case 's':
+            case 'r':
                 testWin->show();
+                break;
+
+            case 'w':
+                testChild->move (childX, --childY);
+                break;
+                
+            case 'a':
+                testChild->move (--childX, childY);
+                break;
+
+            case 's':
+                testChild->move (childX, ++childY);
+                break;
+
+            case 'd':
+                testChild->move (++childX, childY);
                 break;
 
             default:

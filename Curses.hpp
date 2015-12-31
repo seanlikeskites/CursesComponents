@@ -278,8 +278,6 @@ public:
      */
     void setUnderline (bool setting);
 
-    int getCharacter();
-
 private:
     Window (int x, int y, int widthInit, int heightInit, 
             Window::Pointer parentInit, Window::Pointer previousSiblingInit, Window::Pointer nextSiblingInit);
@@ -288,6 +286,10 @@ private:
 
     int xPos, yPos;
     int width, height;
+
+    int xStart, yStart;
+    int leftBound, rightBound;
+    int topBound, bottomBound;
 
     bool visible;
 
@@ -299,6 +301,9 @@ private:
     Window::Pointer parent;
     std::weak_ptr <Window> previousSibling, nextSibling;
     std::weak_ptr <Window> bottomChild, topChild;
+
+    void updateBounds();
+    void refreshParent();
 
     friend class Curses;
 };

@@ -98,6 +98,9 @@ Window::Window (int x, int y, int widthInit, int heightInit,
                 Window::Pointer parentInit, Window::Pointer previousSiblingInit, Window::Pointer nextSiblingInit)
     : xPos (x), yPos (y),
       width (widthInit), height (heightInit),
+      xStart (0), yStart (0),
+      leftBound (0), rightBound (0),
+      topBound (0), bottomBound (0),
       visible (true),
       window (newpad (height, width), delwin),
       blankWindow (newpad (height, width), delwin),
@@ -107,6 +110,7 @@ Window::Window (int x, int y, int widthInit, int heightInit,
       previousSibling (previousSiblingInit),
       nextSibling (nextSiblingInit)
 {
+    updateBounds();
     setColours (backgroundColour, foregroundColour);
 }
 
@@ -154,6 +158,8 @@ void Window::move (int x, int y)
     Curses::Lock lock;
     xPos = x + parent->xPos;
     yPos = y + parent->yPos;
+    updateBounds();
+    refreshParent();
 }
 
 void Window::resize (int x, int y, int newWidth, int newHeight)
@@ -166,6 +172,8 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
     yPos = y + parent->yPos;
     width = newWidth;
     height = newHeight;
+    updateBounds();
+    refreshParent();
 }
 
 void Window::refresh ()
@@ -174,11 +182,16 @@ void Window::refresh ()
 
     if (visible)
     {
-        pnoutrefresh (window.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
+        pnoutrefresh (window.get(), yStart, xStart, topBound, leftBound, bottomBound, rightBound);
+
+        if (bottomChild.lock() != nullptr)
+        {
+            bottomChild.lock()->refresh();
+        }
     }
     else
     {
-        pnoutrefresh (blankWindow.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
+        pnoutrefresh (blankWindow.get(), yStart, xStart, topBound, leftBound, bottomBound, rightBound);
     }
 
     if (nextSibling.lock() != nullptr)
@@ -476,7 +489,45 @@ void Window::setUnderline (bool setting)
     }
 }
 
-int Window::getCharacter()
+void Window::updateBounds()
 {
-    return wgetch (window.get());
+    xStart = 0;
+    yStart = 0;
+    leftBound = xPos;
+    rightBound = xPos + width - 1;
+    topBound = yPos;
+    bottomBound = yPos + height - 1;
+
+    if (parent != nullptr)
+    {
+        if (leftBound < parent->leftBound)
+        {
+            leftBound = parent->leftBound;
+            xStart = leftBound - xPos;
+        }
+
+        if (rightBound > parent->rightBound)
+        {
+            rightBound = parent->rightBound;
+        }
+        
+        if (topBound < parent->topBound)
+        {
+            topBound = parent->topBound;
+            yStart = topBound - yPos;
+        }
+
+        if (bottomBound > parent->bottomBound)
+        {
+            bottomBound = parent->bottomBound;
+        }
+    }
+}
+
+void Window::refreshParent()
+{
+    if (parent != nullptr)
+    {
+        parent->refresh();
+    }
 }
