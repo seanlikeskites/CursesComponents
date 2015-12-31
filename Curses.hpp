@@ -282,7 +282,7 @@ public:
 
 private:
     Window (int x, int y, int widthInit, int heightInit, 
-            Window::Pointer parentInit, Window *nextSiblingInit);
+            Window::Pointer parentInit, Window::Pointer previousSiblingInit, Window::Pointer nextSiblingInit);
     Window (Window &other) = delete;
     Window& operator= (Window &rhs) = delete;
 
@@ -297,8 +297,8 @@ private:
     Curses::Colour backgroundColour, foregroundColour;
 
     Window::Pointer parent;
-    Window *nextSibling;
-    Window *bottomChild, *topChild;
+    std::weak_ptr <Window> previousSibling, nextSibling;
+    std::weak_ptr <Window> bottomChild, topChild;
 
     friend class Curses;
 };

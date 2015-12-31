@@ -32,7 +32,7 @@ Curses::Curses()
 
     refresh();
 
-    mainWindow.reset (new Window (0, 0, getScreenWidth(), getScreenHeight(), nullptr, nullptr));
+    mainWindow.reset (new Window (0, 0, getScreenWidth(), getScreenHeight(), nullptr, nullptr, nullptr));
 }
 
 Curses::~Curses()
@@ -95,7 +95,7 @@ Curses::Lock::~Lock()
 std::recursive_mutex Curses::protectionMutex;
 
 Window::Window (int x, int y, int widthInit, int heightInit, 
-                Window::Pointer parentInit, Window *nextSiblingInit)
+                Window::Pointer parentInit, Window::Pointer previousSiblingInit, Window::Pointer nextSiblingInit)
     : xPos (x), yPos (y),
       width (widthInit), height (heightInit),
       visible (true),
@@ -104,33 +104,47 @@ Window::Window (int x, int y, int widthInit, int heightInit,
       backgroundColour (Curses::Colour::black),
       foregroundColour (Curses::Colour::white),
       parent (parentInit),
-      nextSibling (nextSiblingInit),
-      bottomChild (nullptr),
-      topChild (nullptr)
+      previousSibling (previousSiblingInit),
+      nextSibling (nextSiblingInit)
 {
     setColours (backgroundColour, foregroundColour);
 }
 
 Window::~Window()
 {
+    Pointer pointerToThis;
+
+    if (parent != nullptr)
+    {
+        if (parent->bottomChild.lock() == pointerToThis)
+        {
+            parent->bottomChild = nextSibling;
+        }
+
+        if (parent->topChild.lock() == pointerToThis)
+        {
+            parent->topChild = previousSibling;
+        }
+    }
 }
 
 Window::Pointer Window::createChildWindow (int x, int y, int width, int height)
 {
     Curses::Lock lock;
-    Window::Pointer newWindow (new Window (x + xPos, y + yPos, width, height, shared_from_this(), nullptr));
+    Window::Pointer newWindow (new Window (x + xPos, y + yPos, width, height,
+                                           shared_from_this(), topChild.lock(), nullptr));
 
-    if (bottomChild == nullptr)
+    if (bottomChild.lock() == nullptr)
     {
-        bottomChild = newWindow.get();
+        bottomChild = newWindow;
     }
 
-    if (topChild != nullptr)
+    if (topChild.lock() != nullptr)
     {
-        topChild->nextSibling = newWindow.get();
+        topChild.lock()->nextSibling = newWindow;
     }
 
-    topChild = newWindow.get();
+    topChild = newWindow;
 
     return newWindow;
 }
@@ -167,9 +181,9 @@ void Window::refresh ()
         pnoutrefresh (blankWindow.get(), 0, 0, yPos, xPos, yPos + height - 1, xPos + width - 1);
     }
 
-    if (nextSibling != nullptr)
+    if (nextSibling.lock() != nullptr)
     {
-        nextSibling->refresh();
+        nextSibling.lock()->refresh();
     }
 }
 
