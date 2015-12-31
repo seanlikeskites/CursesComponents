@@ -230,11 +230,18 @@ public:
      */
     void drawBox (int x, int y, int width, int height);
 
-    /** Fill the entire window with a character.
+    /** Fill the entire window with a given character.
      *  
      *  @param character the character to print
      */
     void fillAll(const chtype character);
+    /** Fill the entire window with a given colour.
+     *   
+     *  @param colour the colour to paint the window
+     *  @param setBackground if true the background colour of the window will also be set
+     *                       to this colour
+     */
+    void fillWithColour (Curses::Colour colour, bool setBackground = true);
     /** Clear the window. */
     void clear();
 
@@ -247,7 +254,9 @@ public:
     struct VideoAttributes
     {
         attr_t attributes; /**< The attributes. */
-        short colourPair; /**< The colour pair. */
+        Curses::ColourPair colourPair; /** The colour pair. */
+        Curses::Colour backgroundColour; /** The background colour. */
+        Curses::Colour foregroundColour; /** The foreground colour. */
     };
 
     /** Returns the currently set video attributes for this window. */

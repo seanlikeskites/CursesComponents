@@ -413,6 +413,19 @@ void Window::fillAll(const chtype character)
     }
 }
 
+void Window::fillWithColour (Curses::Colour colour, bool setBackground)
+{
+    Curses::Lock lock;
+    VideoAttributes attributeCache = getVideoAttributes();
+    setBackgroundColour (colour);
+    fillAll (' ');
+
+    if (!setBackground)
+    {
+        setVideoAttributes (attributeCache);
+    }
+}
+
 void Window::clear()
 {
     Curses::Lock lock;
@@ -434,6 +447,8 @@ Window::VideoAttributes Window::getVideoAttributes() const
     Curses::Lock lock;
     VideoAttributes attributes;
     wattr_get (window.get(), &attributes.attributes, &attributes.colourPair, nullptr);
+    attributes.backgroundColour = backgroundColour;
+    attributes.foregroundColour = foregroundColour;
 
     return attributes;
 }
@@ -442,6 +457,8 @@ void Window::setVideoAttributes (const VideoAttributes &attributes)
 {
     Curses::Lock lock;
     wattr_set (window.get(), attributes.attributes, attributes.colourPair, nullptr);
+    backgroundColour = attributes.backgroundColour;
+    foregroundColour = attributes.foregroundColour;
 }
 
 void Window::setBackgroundColour (Curses::Colour newBackgroundColour)
@@ -460,7 +477,7 @@ void Window::setColours (Curses::Colour newBackgroundColour, Curses::Colour newF
     foregroundColour = newForegroundColour;
 
     Curses::Lock lock;
-    wattron (window.get(), COLOR_PAIR (Curses::getColourPairIndex (backgroundColour, foregroundColour)));
+    wcolor_set (window.get(), Curses::getColourPairIndex (backgroundColour, foregroundColour), nullptr);
 }
 
 void Window::setBold (bool setting)

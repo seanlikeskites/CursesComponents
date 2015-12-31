@@ -7,8 +7,7 @@ int main()
 
     Window::Pointer testWin = curses.createTopLevelWindow (30, 2, 30, 30);
 
-    testWin->setForegroundColour (Curses::Colour::white);
-    testWin->fillAll (ACS_BLOCK);
+    testWin->fillWithColour (Curses::Colour::white);
 
     testWin->setForegroundColour (Curses::Colour::green);
 
@@ -39,12 +38,12 @@ int main()
     testWin->setForegroundColour (Curses::Colour::black);
     testWin->drawEllipse (8, 13, 14, 4, ACS_BLOCK);
 
-
     int childX = 2;
     int childY = 2;
     Window::Pointer testChild = testWin->createChildWindow (childX, childY, 35, 5);
-    testChild->setForegroundColour (Curses::Colour::magenta);
-    testChild->fillAll (ACS_BLOCK);
+    testChild->fillWithColour (Curses::Colour::magenta);
+    testChild->setForegroundColour (Curses::Colour::yellow);
+    testChild->drawLine (0, 0, 34, 4, ACS_BLOCK);
     
     testWin->refresh();
 
