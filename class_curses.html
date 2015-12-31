@@ -130,13 +130,13 @@ Public Types</h2></td></tr>
  }<tr class="memdesc:ae71322dc750addf13899894274bed0ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for cursor types.  <a href="class_curses.html#ae71322dc750addf13899894274bed0ea">More...</a><br /></td></tr>
 <tr class="separator:ae71322dc750addf13899894274bed0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </td></tr>
-<tr class="memitem:a6545c144ff6e06e7479854f7c00c8815"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a6545c144ff6e06e7479854f7c00c8815">WindowPointer</a> = std::unique_ptr&lt; WINDOW, int(*)(WINDOW *)&gt;</td></tr>
-<tr class="separator:a6545c144ff6e06e7479854f7c00c8815"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad743a292cc67243e55fc9e76c7668379"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ad743a292cc67243e55fc9e76c7668379">PanelPointer</a> = std::unique_ptr&lt; PANEL, int(*)(PANEL *)&gt;</td></tr>
-<tr class="separator:ad743a292cc67243e55fc9e76c7668379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa60091b2357b0b2a3af94ed8e924d8f9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#aa60091b2357b0b2a3af94ed8e924d8f9">PadPointer</a> = std::unique_ptr&lt; WINDOW, int(*)(WINDOW *)&gt;</td></tr>
+<tr class="separator:aa60091b2357b0b2a3af94ed8e924d8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01fa346fef5981314d75ea88e726688c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a01fa346fef5981314d75ea88e726688c">Instance</a> = <a class="el" href="class_curses.html">Curses</a> &amp;</td></tr>
+<tr class="memdesc:a01fa346fef5981314d75ea88e726688c"><td class="mdescLeft">&#160;</td><td class="mdescRight">A type alias for a reference to a <a class="el" href="class_curses.html" title="A singleton class which manages the lifetime of the ncurses library. ">Curses</a> instance.  <a href="#a01fa346fef5981314d75ea88e726688c">More...</a><br /></td></tr>
 <tr class="separator:a01fa346fef5981314d75ea88e726688c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a135b028b5e96211f75457c2d01878e4a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a> = short</td></tr>
+<tr class="memdesc:a135b028b5e96211f75457c2d01878e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A type alias to represent colour pairs.  <a href="#a135b028b5e96211f75457c2d01878e4a">More...</a><br /></td></tr>
 <tr class="separator:a135b028b5e96211f75457c2d01878e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -144,18 +144,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afb0a88620967e3a5c0e16fabe412e60f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#afb0a88620967e3a5c0e16fabe412e60f">~Curses</a> ()</td></tr>
 <tr class="memdesc:afb0a88620967e3a5c0e16fabe412e60f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#afb0a88620967e3a5c0e16fabe412e60f">More...</a><br /></td></tr>
 <tr class="separator:afb0a88620967e3a5c0e16fabe412e60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25ff5cd744fab1956172d31fb2532e09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_window.html">Window</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a25ff5cd744fab1956172d31fb2532e09">createWindow</a> (int x, int y, int width, int height)</td></tr>
-<tr class="memdesc:a25ff5cd744fab1956172d31fb2532e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new window.  <a href="#a25ff5cd744fab1956172d31fb2532e09">More...</a><br /></td></tr>
-<tr class="separator:a25ff5cd744fab1956172d31fb2532e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e2c872783599bee97199dcd12da17c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a73e2c872783599bee97199dcd12da17c">getInputCharacter</a> ()</td></tr>
+<tr class="memdesc:a73e2c872783599bee97199dcd12da17c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for and return keyboard input.  <a href="#a73e2c872783599bee97199dcd12da17c">More...</a><br /></td></tr>
+<tr class="separator:a73e2c872783599bee97199dcd12da17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a837413e3d9aef50f25d7cc9aeecc09a0"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="class_window.html">Window</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a837413e3d9aef50f25d7cc9aeecc09a0">createTopLevelWindow</a> (int x, int y, int width, int height)</td></tr>
+<tr class="memdesc:a837413e3d9aef50f25d7cc9aeecc09a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new top level window.  <a href="#a837413e3d9aef50f25d7cc9aeecc09a0">More...</a><br /></td></tr>
+<tr class="separator:a837413e3d9aef50f25d7cc9aeecc09a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44e716118ae624333ecee67b207bdb25"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a44e716118ae624333ecee67b207bdb25">getScreenWidth</a> () const </td></tr>
 <tr class="memdesc:a44e716118ae624333ecee67b207bdb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of the terminal in characters.  <a href="#a44e716118ae624333ecee67b207bdb25">More...</a><br /></td></tr>
 <tr class="separator:a44e716118ae624333ecee67b207bdb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d8209f734547274b09a76899249935b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a2d8209f734547274b09a76899249935b">getScreenHeight</a> () const </td></tr>
 <tr class="memdesc:a2d8209f734547274b09a76899249935b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the height of the terminal in characters.  <a href="#a2d8209f734547274b09a76899249935b">More...</a><br /></td></tr>
 <tr class="separator:a2d8209f734547274b09a76899249935b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac977021f18a1bb5932aa29449d3d4eba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ac977021f18a1bb5932aa29449d3d4eba">getColourPairIndex</a> (<a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> backgroundColour, <a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> foregroundColour)</td></tr>
-<tr class="memdesc:ac977021f18a1bb5932aa29449d3d4eba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index for a given pair of colours.  <a href="#ac977021f18a1bb5932aa29449d3d4eba">More...</a><br /></td></tr>
-<tr class="separator:ac977021f18a1bb5932aa29449d3d4eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb664c1854764104c575cd6f377a7d4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#aeb664c1854764104c575cd6f377a7d4d">setCursor</a> (<a class="el" href="class_curses.html#ae71322dc750addf13899894274bed0ea">Cursor</a> newCursor)</td></tr>
 <tr class="memdesc:aeb664c1854764104c575cd6f377a7d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the cursor type.  <a href="#aeb664c1854764104c575cd6f377a7d4d">More...</a><br /></td></tr>
 <tr class="separator:aeb664c1854764104c575cd6f377a7d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,28 +168,19 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2e8679ac82a078644ddc276dcb67d7f1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_curses.html#a01fa346fef5981314d75ea88e726688c">Instance</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#a2e8679ac82a078644ddc276dcb67d7f1">getInstance</a> ()</td></tr>
 <tr class="memdesc:a2e8679ac82a078644ddc276dcb67d7f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the singleton instance of the ncurses library.  <a href="#a2e8679ac82a078644ddc276dcb67d7f1">More...</a><br /></td></tr>
 <tr class="separator:a2e8679ac82a078644ddc276dcb67d7f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3357708e13eb59d9618e6ad74f04e61"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_curses.html#ab3357708e13eb59d9618e6ad74f04e61">getColourPairIndex</a> (<a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> backgroundColour, <a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a> foregroundColour)</td></tr>
+<tr class="memdesc:ab3357708e13eb59d9618e6ad74f04e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the index for a given pair of colours.  <a href="#ab3357708e13eb59d9618e6ad74f04e61">More...</a><br /></td></tr>
+<tr class="separator:ab3357708e13eb59d9618e6ad74f04e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A singleton class which manages the lifetime of the ncurses library. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a6545c144ff6e06e7479854f7c00c8815"></a>
+<a class="anchor" id="aa60091b2357b0b2a3af94ed8e924d8f9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="class_curses.html#a6545c144ff6e06e7479854f7c00c8815">Curses::WindowPointer</a> =  std::unique_ptr &lt;WINDOW, int(*)(WINDOW*)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad743a292cc67243e55fc9e76c7668379"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="class_curses.html#ad743a292cc67243e55fc9e76c7668379">Curses::PanelPointer</a> =  std::unique_ptr &lt;PANEL, int(*)(PANEL*)&gt;</td>
+          <td class="memname">using <a class="el" href="class_curses.html#aa60091b2357b0b2a3af94ed8e924d8f9">Curses::PadPointer</a> =  std::unique_ptr &lt;WINDOW, int(*)(WINDOW*)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -206,6 +197,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>A type alias for a reference to a <a class="el" href="class_curses.html" title="A singleton class which manages the lifetime of the ncurses library. ">Curses</a> instance. </p>
+
 </div>
 </div>
 <a class="anchor" id="a135b028b5e96211f75457c2d01878e4a"></a>
@@ -217,6 +210,8 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>A type alias to represent colour pairs. </p>
 
 </div>
 </div>
@@ -346,12 +341,29 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a25ff5cd744fab1956172d31fb2532e09"></a>
+<a class="anchor" id="a73e2c872783599bee97199dcd12da17c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_window.html">Window</a> Curses::createWindow </td>
+          <td class="memname">int Curses::getInputCharacter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wait for and return keyboard input. </p>
+
+</div>
+</div>
+<a class="anchor" id="a837413e3d9aef50f25d7cc9aeecc09a0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="class_window.html">Window</a>&gt; Curses::createTopLevelWindow </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -382,7 +394,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create a new window. </p>
+<p>Create a new top level window. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>the x position of the new window </td></tr>
@@ -429,12 +441,15 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac977021f18a1bb5932aa29449d3d4eba"></a>
+<a class="anchor" id="ab3357708e13eb59d9618e6ad74f04e61"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a> Curses::getColourPairIndex </td>
+          <td class="memname">static <a class="el" href="class_curses.html#a135b028b5e96211f75457c2d01878e4a">ColourPair</a> Curses::getColourPairIndex </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_curses.html#aa162e3d5b8100dbcfc8ea7441a7686f5">Colour</a>&#160;</td>
           <td class="paramname"><em>backgroundColour</em>, </td>
@@ -451,6 +466,11 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Return the index for a given pair of colours. </p>
@@ -512,7 +532,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 22 2015 10:39:07 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 31 2015 14:40:13 for Curses Components by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
