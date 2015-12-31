@@ -254,9 +254,9 @@ public:
     struct VideoAttributes
     {
         attr_t attributes; /**< The attributes. */
-        Curses::ColourPair colourPair; /** The colour pair. */
-        Curses::Colour backgroundColour; /** The background colour. */
-        Curses::Colour foregroundColour; /** The foreground colour. */
+        Curses::ColourPair colourPair; /**< The colour pair. */
+        Curses::Colour backgroundColour; /**< The background colour. */
+        Curses::Colour foregroundColour; /**< The foreground colour. */
     };
 
     /** Returns the currently set video attributes for this window. */
