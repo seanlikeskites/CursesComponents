@@ -14,6 +14,8 @@ class Curses
 {
 public:
     using PadPointer = std::unique_ptr <WINDOW, int(*)(WINDOW*)>;
+    
+    /** A type alias for a reference to a Curses instance. */
     using Instance = Curses&;
 
     /** Destructor */
@@ -22,9 +24,10 @@ public:
     /** Get the singleton instance of the ncurses library. */
     static Instance getInstance();
 
+    /** Wait for and return keyboard input. */
     int getInputCharacter();
 
-    /** Create a new window. 
+    /** Create a new top level window. 
      *
      *  @param x the x position of the new window
      *  @param y the y position of the new window
@@ -51,6 +54,7 @@ public:
         white = COLOR_WHITE /**< White */
     };
 
+    /** A type alias to represent colour pairs. */
     using ColourPair = short;
 
     /** Return the index for a given pair of colours.
@@ -110,13 +114,22 @@ private:
 class Window : public std::enable_shared_from_this <Window>
 {
 public:
+    /** A type alias for a shared_ptr to a window. */
     using Pointer = std::shared_ptr <Window>;
 
     /** Destructor */
     ~Window();
 
+    /** Create a new child Window of this Window. 
+     *
+     *  @param x the x position of the new window inside its parent
+     *  @param y the y position of the new window inside its parent
+     *  @param width the width of the new window
+     *  @param height the height of the new window
+     */
     Pointer createChildWindow (int x, int y, int width, int height);
 
+    /** Refresh the display for this Window and any which are displayed above it. */
     void refresh ();
     /** Hide the window. */
     void hide();
