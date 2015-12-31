@@ -103,11 +103,11 @@ private:
 
     static std::recursive_mutex protectionMutex;
 
-    std::unique_ptr <Window> mainWindow;
+    std::shared_ptr <Window> mainWindow;
 };
 
 /** An ncurses window. */
-class Window
+class Window : public std::enable_shared_from_this <Window>
 {
 public:
     using Pointer = std::shared_ptr <Window>;
@@ -282,7 +282,7 @@ public:
 
 private:
     Window (int x, int y, int widthInit, int heightInit, 
-            Window *parentInit, Window *nextSiblingInit);
+            Window::Pointer parentInit, Window *nextSiblingInit);
     Window (Window &other) = delete;
     Window& operator= (Window &rhs) = delete;
 
@@ -296,7 +296,7 @@ private:
 
     Curses::Colour backgroundColour, foregroundColour;
 
-    Window *parent;
+    Window::Pointer parent;
     Window *nextSibling;
     Window *bottomChild, *topChild;
 

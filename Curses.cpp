@@ -95,7 +95,7 @@ Curses::Lock::~Lock()
 std::recursive_mutex Curses::protectionMutex;
 
 Window::Window (int x, int y, int widthInit, int heightInit, 
-                Window *parentInit, Window *nextSiblingInit)
+                Window::Pointer parentInit, Window *nextSiblingInit)
     : xPos (x), yPos (y),
       width (widthInit), height (heightInit),
       visible (true),
@@ -118,7 +118,7 @@ Window::~Window()
 Window::Pointer Window::createChildWindow (int x, int y, int width, int height)
 {
     Curses::Lock lock;
-    Window::Pointer newWindow (new Window (x + xPos, y + yPos, width, height, this, nullptr));
+    Window::Pointer newWindow (new Window (x + xPos, y + yPos, width, height, shared_from_this(), nullptr));
 
     if (bottomChild == nullptr)
     {
