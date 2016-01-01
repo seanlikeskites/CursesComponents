@@ -316,7 +316,6 @@ private:
     bool visible;
 
     Curses::PadPointer window;
-    Curses::PadPointer blankWindow;
 
     Curses::Colour backgroundColour, foregroundColour;
 
@@ -326,6 +325,9 @@ private:
 
     void updateBounds();
     void refreshParent();
+    void refreshParentSiblings();
+
+    void removeFromHierarchy();
 
     friend class Curses;
 };

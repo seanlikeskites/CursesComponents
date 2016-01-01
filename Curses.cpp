@@ -103,7 +103,6 @@ Window::Window (int x, int y, int widthInit, int heightInit,
       topBound (0), bottomBound (0),
       visible (true),
       window (newpad (height, width), delwin),
-      blankWindow (newpad (height, width), delwin),
       backgroundColour (Curses::Colour::black),
       foregroundColour (Curses::Colour::white),
       parent (parentInit),
@@ -116,20 +115,7 @@ Window::Window (int x, int y, int widthInit, int heightInit,
 
 Window::~Window()
 {
-    Pointer pointerToThis;
-
-    if (parent != nullptr)
-    {
-        if (parent->bottomChild.lock() == pointerToThis)
-        {
-            parent->bottomChild = nextSibling;
-        }
-
-        if (parent->topChild.lock() == pointerToThis)
-        {
-            parent->topChild = previousSibling;
-        }
-    }
+    removeFromHierarchy();
 }
 
 Window::Pointer Window::createChildWindow (int x, int y, int width, int height)
@@ -143,7 +129,7 @@ Window::Pointer Window::createChildWindow (int x, int y, int width, int height)
         bottomChild = newWindow;
     }
 
-    if (topChild.lock() != nullptr)
+    if (!topChild.expired())
     {
         topChild.lock()->nextSibling = newWindow;
     }
@@ -166,7 +152,6 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
 {
     Curses::Lock lock;
     window.reset (newpad (newHeight, newWidth));
-    blankWindow.reset (newpad (newHeight, newWidth));
 
     xPos = x + parent->xPos;
     yPos = y + parent->yPos;
@@ -179,31 +164,30 @@ void Window::resize (int x, int y, int newWidth, int newHeight)
 void Window::refresh ()
 {
     Curses::Lock lock;
-
     if (visible)
     {
         pnoutrefresh (window.get(), yStart, xStart, topBound, leftBound, bottomBound, rightBound);
 
-        if (bottomChild.lock() != nullptr)
+        if (!bottomChild.expired())
         {
             bottomChild.lock()->refresh();
         }
     }
-    else
-    {
-        pnoutrefresh (blankWindow.get(), yStart, xStart, topBound, leftBound, bottomBound, rightBound);
-    }
 
-    if (nextSibling.lock() != nullptr)
+    if (!nextSibling.expired())
     {
         nextSibling.lock()->refresh();
+    }
+    else
+    {
+        refreshParentSiblings();
     }
 }
 
 void Window::hide()
 {
     visible = false;
-    refresh();
+    refreshParent();
 }
 
 void Window::show()
@@ -547,4 +531,45 @@ void Window::refreshParent()
     {
         parent->refresh();
     }
+}
+
+void Window::refreshParentSiblings()
+{
+    if (parent!=nullptr)
+    {
+        if (!parent->nextSibling.expired())
+        {
+            parent->nextSibling.lock()->refresh();
+        }
+    }
+}
+
+void Window::removeFromHierarchy()
+{
+    Curses::Lock lock;
+
+    if (!nextSibling.expired())
+    {
+        nextSibling.lock()->previousSibling = previousSibling;
+    }
+
+    if (!previousSibling.expired())
+    {
+        previousSibling.lock()->nextSibling = nextSibling;
+    }
+
+    if (parent != nullptr)
+    {
+        if (previousSibling.expired())
+        {
+            parent->bottomChild = nextSibling;
+        }
+
+        if (nextSibling.expired())
+        {
+            parent->topChild = previousSibling;
+        }
+    }
+
+    refreshParent();
 }
